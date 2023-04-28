@@ -70,30 +70,6 @@
                         </option>
                 </select>
             </div>
-            
-            <!-- <mat-form-field appearance="fill" class="inpForms m-2 w-25">
-                <mat-label>
-                    Provincia:
-                </mat-label>
-                <mat-select formControlName="provincia" #provincia id="provincia" >
-                    <mat-option *ngFor="let provincia of provinciaLista" 
-                                [value]="provincia.codigo"
-                                (click)="getCantones(provincia.codigo)">
-                                {{provincia.nombre | titlecase }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            
-            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
-                <mat-label>
-                    Cantón:
-                </mat-label>
-                <mat-select formControlName="canton" #canton id="canton" >
-                    <mat-option *ngFor="let canton of cantonLista" [value]="canton.codigo">
-                        {{canton.nombre | titlecase }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field> -->
 
             <div class="m-2 d-flex flex-column w-25">
                 <label for="tipPers">Facultad</label>
@@ -121,7 +97,7 @@
             </div>
             <div class="m-2 d-flex flex-column">
                 <label for="celular">Telf. Celular</label>
-                <input type="number" class="inpForms form-control rounded-pill"
+                <input type="text" class="inpForms form-control rounded-pill"
                        formControlName="celular" 
                        #direccion id="celular">
             </div>
@@ -254,6 +230,15 @@
                     <input type="number" class="inpForms form-control rounded-pill"
                            formControlName="telefonoCasa" 
                            #telefonoCasa id="telefonoCasa">
+                </div>
+                <div class="m-2 d-flex flex-column w-50">
+                    <label for="codCarrera">Capacidades del estudiante</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="capacidades" #capacidades id="capacidades" aria-label="">
+                            <option *ngFor="let capacidad of capacidadesLista" [value]="capacidad.codigo" >
+                                {{capacidad.nombre | titlecase }}                                
+                            </option>
+                    </select>
                 </div>
             </div>
             </form>

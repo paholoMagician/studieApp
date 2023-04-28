@@ -36,6 +36,7 @@ export class DatosPersonalesComponent implements OnInit {
   public tipoPersonaLista: any = [];
   public carrerasLista:    any = [];
   public facultadLista:    any = [];
+  public capacidadesLista: any = [];
   public _IMGE:        string     = '';
   public _msj: string = 'Crear';
   public _icon: string = 'add';
@@ -61,7 +62,7 @@ export class DatosPersonalesComponent implements OnInit {
     tipoPers:      new FormControl( '' ),
     carrera:       new FormControl( '' ),
     facultad:      new FormControl( '' ),
-    sexo:          new FormControl( '' )
+    sexo:          new FormControl( '' ),
   });
 
   public alumnoForm = new FormGroup({
@@ -83,7 +84,8 @@ export class DatosPersonalesComponent implements OnInit {
     telefonoCelular:        new FormControl( '' ),       
     telefonoCasa:           new FormControl( '' ),          
     // CodCia:                
-    codSexo:                new FormControl( '' )               
+    codSexo:                new FormControl( '' )   ,
+    capacidades:            new FormControl( '' ),            
   })
 
   ngOnInit(): void {
@@ -99,6 +101,8 @@ export class DatosPersonalesComponent implements OnInit {
         this.getDataMaster('UG01');
         // Facultad
         this.getDataMaster('UG00');
+        //capacidades
+        this.getDataMaster('CPAD');
 
         let xtipo: any = sessionStorage.getItem('tipo');
         if( xtipo == 'ADMIN' || xtipo == 'administrador' || xtipo == 'docente' ) {
@@ -143,7 +147,8 @@ export class DatosPersonalesComponent implements OnInit {
       telefonoCelular:          this.alumnoForm.controls['telefonoCelular'].value,
       telefonoCasa:             this.alumnoForm.controls['telefonoCasa'].value,           
       CodCia: this.codCia,
-      codSexo:                  this.alumnoForm.controls['codSexo'].value    
+      codSexo:                  this.alumnoForm.controls['codSexo'].value,
+      capacidades:              this.alumnoForm.controls['capacidades'].value
     }
 
     console.warn(this.estudianteLista);
@@ -164,9 +169,9 @@ export class DatosPersonalesComponent implements OnInit {
     this.DataMaster.obtenerImagen(codUser, 'PERFIL').subscribe( {
       next: (imagen) => {
         this.imagenLista = imagen;
-        console.warn(this.imagenLista);
+        // console.warn(this.imagenLista);
         this._IMGE = this.imagenLista[0].imagenContent;   
-        console.warn(this._IMGE);
+        // console.warn(this._IMGE);
       }
     })
   }
@@ -215,6 +220,9 @@ export class DatosPersonalesComponent implements OnInit {
             this.facultadLista = Data;
             //console.log('this.facultadLista')
             //console.log(this.facultadLista)
+            break;
+          case 'CPAD':
+            this.capacidadesLista = Data;
             break;
         }
       }
@@ -313,7 +321,8 @@ export class DatosPersonalesComponent implements OnInit {
       } else {
 
         console.warn('PARA PINTAR LA INFORMACION DEL ALUMNO');
-
+        console.warn('ESTE ES EL CODIGO DE CAPACIDADES')
+        console.warn(this.perfilLista)
         this.alumnoForm.controls['alumnoNombre'].setValue(this.perfilLista[0].alumnoNombre);
         this.alumnoForm.controls['cedula'].setValue(this.perfilLista[0].cedula);                
         this.alumnoForm.controls['edad'].setValue(this.perfilLista[0].edad);                   
@@ -329,6 +338,7 @@ export class DatosPersonalesComponent implements OnInit {
         this.alumnoForm.controls['direccion'].setValue(this.perfilLista[0].direccion);
         this.alumnoForm.controls['telefonoCelular'].setValue(this.perfilLista[0].telefonoCelular);
         this.alumnoForm.controls['telefonoCasa'].setValue(this.perfilLista[0].telefonoCasa); 
+        this.alumnoForm.controls['capacidades'].setValue(this.perfilLista[0].codCapacidades); 
       }
 
       this.obtenerImagen( x );
