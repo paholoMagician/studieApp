@@ -1,0 +1,22 @@
+
+
+<div class="d-flex justify-content-between" style="height: 100vh">
+    <div style="height: 100%">
+        <app-nav-side (modulo)="recibirModulo($event)"></app-nav-side>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="workarea">
+        <app-estudiantes            *ngIf="_usuario">              </app-estudiantes>
+        <app-personal-vinculacion   *ngIf="_personal">             </app-personal-vinculacion>
+        <app-datos-personales       *ngIf="_datos_personales">     </app-datos-personales>
+        <app-registro-beneficiario  *ngIf="_registro_beneficiario"></app-registro-beneficiario>
+        <app-crear-convenios        *ngIf="_registro_convenio">    </app-crear-convenios>
+        <app-generar-proyectos      *ngIf="_generar_proyectos">    </app-generar-proyectos>
+        <app-procesos               *ngIf="_generar_procesos">     </app-procesos>
+        <app-agrupar-estudiantes    *ngIf="_agrupar_estudiantes">  </app-agrupar-estudiantes>
+        <app-agregar-actividad      *ngIf="_agregar_actividad">    </app-agregar-actividad>
+        <app-generar-reportes       *ngIf="_generar_reportes">     </app-generar-reportes >
+        <app-insitutos-maestro      *ngIf="_instituciones_maestro"></app-insitutos-maestro>
+    </div>
+</div>
+

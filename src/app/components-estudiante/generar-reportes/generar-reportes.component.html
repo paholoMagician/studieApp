@@ -1,0 +1,108 @@
+
+<section class="header p-3">
+    <h2>Generar Reportes</h2>
+</section>
+
+<div class="w-100">
+    <mat-tab-group class="w-100">
+        <mat-tab label="Reporte de Actividades del Estudiante"> 
+            <div class="titledata mt-2 mb-2">
+                <span>
+                    <h3 class="m-0">Proyecto Asignado:
+                        <strong> {{_nombreProyecto | uppercase}} </strong>
+                         &nbsp;&nbsp; Número de Proceso 
+                        <strong> {{_numeroProceso}} </strong>
+                    </h3>
+                </span>
+                <!-- <span>
+                    Descripción: <strong> {{_descripcionProyecto | uppercase}} </strong>
+                </span> -->
+            </div>
+            <div class="d-flex justify-content-center flex-column align-items-center " >
+                <div *ngFor="let semana of diasPorSemana; let i = index" class="body-reporte p-4 d-flex justify-content-center flex-column mt-2 shadow-lg">
+                    <section class="header">
+                        <h1 class="d-flex justify-content-center" style="font-weight: bold;" >
+                            UNIVERSIDAD DE GUAYAQUIL 
+                        </h1>
+                        <h3 class="d-flex justify-content-center" style="text-align: center;">
+                            GESTIÓN SOCIAL DEL CONOCIMIENTO 
+                            <br>
+                            PRÁCTICAS DE SERVICIO COMUNITARIO
+                        </h3>                    
+                        <div class="title w-100">
+                            FICHA DE ACTIVIDADES DIARIAS ( {{_numeroProceso}} )
+                        </div>
+                    </section>
+                    <section class="sub-header mt-2">
+                        <div class=" p-1">
+                            <h3 class="m-0 p-0">  NOMBRES Y APELLIDOS DEL ESTUDIANTE: <strong> {{_estudiante | uppercase}} </strong> </h3>
+                        </div>
+                        <div class=" p-1">
+                            <h3 class="m-0 p-0" > FACULTAD: <strong> {{_facultad | uppercase}} </strong> </h3>
+                        </div>
+                        <div  class=" p-1">
+                            <h3 class="m-0 p-0" > CARRERA: <strong> {{_carrera | uppercase}} </strong> </h3>
+                        </div>
+                        <div  class=" p-1">
+                            <h3 class="m-0 p-0" > NOMBRE SUPERVISOR DE LA INSTITUCIÓN: <strong> {{_supervisor | uppercase}} </strong> </h3>
+                        </div>
+                    </section>    
+                    <section class="w-100 mt-2">
+                        <div class="sem">
+                            <h3 class="m-0 p-0" > SEMANA: <strong> {{i + 1}} </strong> </h3>
+                        </div>
+                        <div class="table-responsive w-100 mt-2 ">
+                            <table class="description table table-bordered table-striped w-100">
+                                <thead class="table-secondary">
+                                    <th class="p-2" style="border: solid 0.5px gray;">FECHA</th>
+                                    <th class="p-2" style="border: solid 0.5px gray;">HORAS</th>
+                                    <th class="p-2" style="border: solid 0.5px gray;">DESCRIPCIÓN DE TAREAS DIARIAS DESARROLLADAS</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let dias of semana">
+                                        <td> {{dias.fechaDia}}    </td>
+                                        <td> {{dias.nHoras}}      </td>
+                                        <td> {{dias.descripcion | uppercase}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section> 
+                    <section class="footerReport w-100 mt-2" >
+                        <h3> 
+                            Total de Horas: <strong style="font-size: 18pt;"> {{semana[0].sumatoria}} </strong>
+                        </h3>
+                    </section>               
+                    <section class="w-100 mt-2">
+                        <h3><strong> Observaciones: </strong></h3>
+                        <div class="obs p-4">
+                            {{semana[0].observaciones}}
+                        </div>
+                    </section>
+                    <section class="firmas w-100">
+                        <div class="d-flex justify-content-around">
+                            <div class="pf d-flex align-items-start">
+                                <h3> <strong> FIRMA DEL SUPERVISOR DE LA INSTITUCIÓN </strong> </h3>
+                            </div>
+                            <div class="pf d-flex align-items-start">
+                                <h3> <strong> SELLO DE LA INSTITUCIÓN </strong> </h3>
+                            </div>
+                        </div>
+                        <div class="nota">
+                            Nota: El estudiante podrá realizar máximo 6 horas diarias de prácticas, es decir máximo 30 horas a la semana.
+                        </div>
+                    </section>
+                </div>
+
+            </div>                
+        </mat-tab>
+        <mat-tab label="Informes del Gestor">
+            <app-informes-gestor></app-informes-gestor>
+        </mat-tab>  
+        <mat-tab label="Ficha de Evaluación del Practicante">
+            <app-evaluacion-practicante></app-evaluacion-practicante>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+

@@ -1,0 +1,221 @@
+<section class="header p-3">
+    <h2>Creación de Convenios</h2>
+    <small></small>
+</section>
+<section class="table p-3 w-100">    
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+          <form [formGroup]="convenioMarcoForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center align-items-end w-100">
+            <div class="d-flex justify-content-between flex-wrap align-items-end  ">
+            
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Nombre del Convenio</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombreConvenio" 
+                       #nombreConvenio id="nombreConvenio" >
+            </div>
+
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Nombre de la Institución Convenio</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombreConvenioIntitu" 
+                       #nombreConvenioIntitu id="nombreConvenioIntitu" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Fecha de Inicio</label>
+                <input type="date" class="inpForms form-control rounded-pill"
+                       formControlName="fInicio" 
+                       #fInicio id="fInicio" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="fFin">Fecha de Final</label>
+                <input type="date" class="inpForms form-control rounded-pill"
+                       formControlName="fFin" 
+                       #fFin id="fFin" >
+            </div>
+            <div class="m-2 d-flex flex-column w-50">
+                <label for="convenioFisico">Convenio Físico</label>
+                <input type="file" 
+                       class="inpForms form-control rounded-pill"
+                       (change)="catchFile()"
+                       formControlName="convenioFisico" #convenioFisico id="convenioFisico" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25 ">
+                <label for="representanteConvenio">Representante de Convenio Institucional</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="representanteConvenioI" 
+                       #representanteConvenioI id="representanteConvenioI" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25 ">
+                <label for="representanteConvenio">Receptor de convenio</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="representanteConvenioU" 
+                       #representanteConvenioU id="representanteConvenioU" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25 ">
+                <label for="representanteConvenio">Identificador Único</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="identificadorUnicoUniversidad" 
+                       #identificadorUnicoUniversidad id="identificadorUnicoUniversidad" >
+            </div>
+        </div>
+
+        </form>
+        <div class="d-flex justify-content-end align-items-center">
+            <button mat-flat-button color="warn" (click)="limpiar()" *ngIf="_cancel">
+                <mat-icon>cancel</mat-icon>
+            </button>
+            <button type="submit" (click)="onSubmit()" class="m-2"  mat-flat-button color="primary" style="margin-right: 15px;">
+                <mat-icon>{{icon_button}}</mat-icon> {{textButton}} Convenio
+            </button>
+        </div>
+    </section>
+</section>
+
+<section class="table mt-3 p-3 w-100">
+    <div class="d-flex" >
+        <h2 class="d-flex align-items-start">
+             <mat-icon>find_in_page</mat-icon>
+             <span> Convenios Marcos creados </span>
+        </h2>
+    </div>
+    <div class="mb-2 d-flex">
+        <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+               (keyup)="applyFilter($event)" #input 
+               placeholder="Busqueda de convenios....">
+    </div>
+    <div class="table-responsive w-100">
+        <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100">
+            <ng-container matColumnDef="edit">                
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  <span>
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+                  </span>
+                  <span>
+                    <mat-icon>
+                      add_box
+                    </mat-icon>
+                  </span>
+                  <span>
+                    <mat-icon  >
+                      visibility
+                    </mat-icon>
+                  </span>
+                </th>
+                
+                <td mat-cell *matCellDef="let row">
+                  <div class="d-flex">
+                  <span class="edit">
+                    <mat-icon (click)="addDataEdit(row.nombreConvenio, row.representanteConvenioU,row.representanteConvenioI,
+                    row.nombreConvenioIntitu, row.identificadorUnicoUniversidad,
+                    row.fechaIni, row.fachafin, row.codConvenioMarco)">
+                      edit_box
+                    </mat-icon>
+                  </span>
+                  <span class="delete" (click)="openDialog(row.codConvenioMarco, row.nombreConvenio, 0)">
+                    <mat-icon  >
+                      add_box
+                    </mat-icon>
+                  </span>
+                  <span class="delete ml-2" [matBadge]="row.cantidadConvEsp" matBadgeColor="warn" (click)="openDialog(row.codConvenioMarco, row.nombreConvenio, 1)">
+                    <mat-icon>
+                      visibility
+                    </mat-icon>
+                  </span>
+                </div>
+                </td>
+
+              </ng-container>
+
+            <ng-container matColumnDef="Fecha Creación">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Fecha Creación
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.codConvenioMarco | slice:17:27}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Nombre Convenio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Nombre Convenio
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.nombreConvenio}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="F. Desde">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                F. Desde
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.fechaIni | date: 'dd-MM-yyyy'}} 
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="F. Hasta">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                F. Hasta
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.fachafin | date: 'dd-MM-yyyy'}} 
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Nombre Convenio I.">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+                Nombre Convenio I.
+              </th>
+              <td mat-cell *matCellDef="let row">
+                  {{row.nombreConvenioIntitu}}
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Representante Convenio I.">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Representante Convenio I.
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <!--  | slice:0:20 -->
+                {{row.representanteConvenioI}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Representante Convenio U.">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Representante Convenio U.
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.representanteConvenioU}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ID único Universidad">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    ID único Universidad
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.identificadorUnicoUniversidad}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+        
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                Datos no encontrados...
+              </td>
+            </tr>
+        </table>    
+        <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+        </mat-paginator>    
+    </div>
+</section>

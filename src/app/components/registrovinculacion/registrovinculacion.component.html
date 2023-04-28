@@ -1,0 +1,198 @@
+
+<div class="container">
+
+    <mat-card class="mt-3 mb-2">
+        <h3 class="d-flex align-items-center">
+            <mat-icon >person_add</mat-icon>
+            <span class="ml-2"> Registro del Alumno </span>
+        </h3>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <h5> El proceso de vinculación esta abierto puedes registrarte.</h5>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="mt-1">
+        
+        <mat-card-content>
+            <mat-card-content>
+                
+                    <form [formGroup]="alumnoForm" (ngSubmit)="onSubmit()">
+                        
+                        <div class="d-flex justify-content-start align-items-end flex-wrap">
+                            
+                            <section class="header w-100 d-flex align-items-start">
+                                <mat-icon>account_box</mat-icon> <h4>Datos personales</h4>
+                            </section>
+                            
+                            <mat-form-field appearance="fill" class="inpForms m-2">
+                                <mat-label>Cédula</mat-label>
+                                <input matInput formControlName="cedula" (keyup)="validarCedula()"
+                                       #cedula id="cedula" type="text" placeholder="1027031732" >
+                                <mat-hint>{{messageText}}</mat-hint>
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-50"> 
+                                <mat-label>Nombre y apellido</mat-label>
+                                <input matInput formControlName="alumnoNombre" #alumnoNombre id="alumnoNombre" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>
+                                    Sexo:
+                                </mat-label>
+                                <mat-select formControlName="sexo" #sexo id="sexo" >
+                                    <mat-option *ngFor="let sexo of sexoLista" [value]="sexo.codigo">
+                                        {{sexo.nombre | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>
+                                    Estado Civil:
+                                </mat-label>
+                                <mat-select formControlName="estadoCivil" #estadoCivil id="estadoCivil" >
+                                    <mat-option *ngFor="let eCivil of estadoCivilLista" [value]="eCivil.codigo">
+                                        {{eCivil.nombre | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2">
+                                <mat-label>Edad</mat-label>
+                                <input matInput type="number" formControlName="edad"
+                                       #edad id="edad" placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>
+                                    Capacidad del Alumno:
+                                </mat-label>
+                                <mat-select formControlName="capacidad" #capacidad id="capacidad" >
+                                    <mat-option *ngFor="let capacidad of capacidadLista" [value]="capacidad.codigo">
+                                        {{capacidad.nombre | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>                
+                        <mat-divider></mat-divider>
+                        <div class="d-flex  justify-content-between flex-wrap">
+                            <div class="d-flex justify-content-start align-items-end flex-wrap mt-2">
+                                <section class="header w-100 d-flex align-items-start"><mat-icon>mail</mat-icon><h4> Correos electrónicos</h4></section>
+                                <div class="d-flex justify-content-start w-100">
+                                    <mat-form-field appearance="fill" class="inpForms w-50 m-2 p-2">
+                                        <mat-label>  Correo Institucional</mat-label>
+                                        <input matInput type="email" formControlName="correoInstitu" #correoInstitu id="correoInstitu" placeholder="mail@universidad.com" >
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" class="inpForms w-50 m-2 p-2">
+                                        <mat-label>Correo Personal</mat-label>
+                                        <input matInput type="email" formControlName="correoPerson" #correoPerson id="correoPerson" placeholder="mail@mail.com" >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-end flex-wrap mt-2">
+                                <section class="header w-100 d-flex align-items-start">
+                                    <mat-icon>school</mat-icon>
+                                    <h4> Datos institucionales</h4>
+                                </section>
+                                <div class="d-flex justify-content-betweenlex-wrap w-100">
+                                    <mat-form-field appearance="fill" class="inpForms m-2 w-50 p-2 ">
+                                        <mat-label>
+                                            Faultad:
+                                        </mat-label>
+                                        <mat-select formControlName="facultad" #facultad id="facultad" >
+                                            <mat-option *ngFor="let facultad of facultadLista"
+                                                        [value]="facultad.codigo">
+                                                        {{facultad.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" class="inpForms m-2 w-50 p-2 ">
+                                        <mat-label>
+                                            Carrera:
+                                        </mat-label>
+                                        <mat-select formControlName="carrera" #carrera id="carrera" >
+                                            <mat-option *ngFor="let carrera of carrerasLista"
+                                                        [value]="carrera.codigo">{{carrera.nombre}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" class="inpForms m-2 p-2 " style="width: 150px;">
+                                        <mat-label>Semestre:</mat-label>
+                                        <mat-select formControlName="semestre" #semestre id="semestre">
+                                            <mat-option *ngFor="let semestre of semestreLista" [value]="semestre.nivel">
+                                                {{semestre.nivel}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" class="inpForms m-2 w-50 p-2 ">
+                                        <mat-label>
+                                            Curso:
+                                        </mat-label>
+                                        <mat-select formControlName="codCurso" #codCurso id="codCurso" >
+                                            <mat-option *ngFor="let curso of cursoLista" title="{{curso.nombre}}"
+                                                        [value]="curso.codigo">
+                                                        {{curso.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="d-flex justify-content-start align-items-end flex-wrap mt-2">
+                            <section class="header w-100 d-flex align-items-start">
+                                <mat-icon>explore</mat-icon>
+                                <h4> Datos de ubicación</h4>
+                            </section>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>
+                                    Provincia:
+                                </mat-label>
+                                <mat-select formControlName="provincia" #provincia id="provincia" >
+                                    <mat-option *ngFor="let provincia of provinciaLista" 
+                                                [value]="provincia.codigo"
+                                                (click)="getCantones(provincia.codigo)">
+                                                {{provincia.nombre | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>
+                                    Cantón:
+                                </mat-label>
+                                <mat-select formControlName="canton" #canton id="canton" >
+                                    <mat-option *ngFor="let canton of cantonLista" [value]="canton.codigo">
+                                        {{canton.nombre | titlecase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-50">
+                                <mat-label>Dirección</mat-label>
+                                <input matInput formControlName="direccion" #direccion id="direccion">
+                            </mat-form-field>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="d-flex justify-content-start align-items-end flex-wrap mt-2">
+                            <section class="header w-100 d-flex align-items-start"><mat-icon>phone_in_talk</mat-icon>
+                                <h4>Contactos</h4>
+                            </section>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>Teléfono de celular</mat-label>
+                                <input matInput type="number" formControlName="tCelular" #tCelular id="tCelular" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                                <mat-label>Teléfono de casa</mat-label>
+                                <input matInput type="number" formControlName="tCasa" #tCasa id="tCasa" >
+                            </mat-form-field>
+                        </div>
+                    </form>
+                    <section>
+                        <button mat-raised-button color="warn" (click)="salir()" class="m-2">
+                            <mat-icon>cancel</mat-icon> Salir
+                        </button>
+                        <button type="submit" color="accent" (click)="onSubmit()"
+                                mat-raised-button style="margin-right: 25px !important;">
+                            <mat-icon>add</mat-icon> Crear Alumno
+                        </button>
+                    </section>
+            </mat-card-content>
+        </mat-card-content>
+    </mat-card>
+</div>

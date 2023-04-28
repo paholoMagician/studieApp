@@ -1,0 +1,280 @@
+<section class="header p-3">
+    <h2>Creación de Procesos</h2>
+</section>
+<section class="table p-3 w-100">    
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+          <form [formGroup]="procesosForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center align-items-end w-100">
+            <div class="d-flex justify-content-between flex-wrap align-items-end  ">
+            
+            <div class="m-2 d-flex flex-column col-0">
+                <label for="numeroProceso">Número del Proceso <strong class="text-danger">*</strong></label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="numeroProceso" 
+                       #numeroProceso id="numeroProceso">
+            </div>
+
+            <div class="m-2 d-flex flex-column col-4">
+              <label for="idProyecto">Asignar Proyecto <strong class="text-danger">*</strong></label>
+              <select class="inpForms form-select rounded-pill w-100"
+                      formControlName="idProyecto"
+                      #idProyecto (change)="obtenerFechaFinal()"
+                      id="idProyecto"
+                      aria-label="">
+                      <option *ngFor="let proyecto of listaProyectosObtenidas"  [value]="proyecto.idProyecto">
+                        <strong>Nombre</strong>
+                        {{ proyecto.nombreProyecto | titlecase }}                                
+                      </option>
+              </select>
+          </div>                
+
+            <div class="m-2 d-flex flex-column col-4">
+                <label for="idDecanoVinculacion">Decano <strong class="text-danger">*</strong></label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idDecanoVinculacion"
+                        #idDecanoVinculacion 
+                        id="idDecanoVinculacion"
+                        aria-label="">
+                        <option *ngFor="let tutor of decanoLista" [value]="tutor.codPersonal" >
+                            <strong> {{tutor.personaNombre | titlecase }} </strong> |
+                            <span class="text-primary"> {{ tutor.nombreTippo | uppercase }} </span>
+                        </option>
+                </select>
+            </div>    
+            <div class="m-2 d-flex flex-column col-4">
+                <label for="idTutorVinculacion">Tutor <strong class="text-danger">*</strong></label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idTutorVinculacion"
+                        #idTutorVinculacion 
+                        id="idTutorVinculacion"
+                        aria-label="">
+                        <option *ngFor="let tutor of personalVinculacion" [value]="tutor.codPersonal" >
+                            <strong> {{tutor.personaNombre | titlecase }} </strong> |
+                            <span class="text-primary"> {{ tutor.nombreTippo | uppercase }} </span>
+                        </option>
+                </select>
+            </div>    
+            
+            <div class="m-2 d-flex flex-column">
+              <label for="fecInicio">Fecha de Inicio
+                <strong class="text-danger">*</strong>
+              </label>
+              <input type="date" 
+                     class="inpForms form-control rounded-pill"
+                     formControlName="fecInicio"
+                     #fecInicio id="fecInicio" >
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+                <label for="fecFin">Fecha de Final: 
+                  <small class="text-primary">PROYECTO HASTA: <strong>
+                   {{fechaFinalProyecto | date: 'dd-MM-yyyy'}}</strong>
+                  </small>
+                  <strong class="text-danger">*</strong>
+                </label>
+                <input type="date" (keyup)="validateDate()" (change)="validateDate()" class="inpForms form-control rounded-pill"
+                formControlName="fecFin"
+                #fecFin id="fecFin" >
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+                <label for="horas">Horas Vinculación <strong class="text-danger">*</strong> </label>
+                <input type="number" (keyup)="validacionHoras()"
+                class="inpForms form-control rounded-pill"
+                formControlName="horas"
+                #horas id="horas" >
+            </div>
+
+            <div class="m-2 d-flex flex-column col-4">
+                <label for="idCoordinadorGeneral">Coordinador General <strong class="text-danger">*</strong></label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idCoordinadorGeneral"
+                        #idCoordinadorGeneral 
+                        id="idCoordinadorGeneral"
+                        aria-label="">
+                        <option *ngFor="let tutor of personalVinculacion" [value]="tutor.codPersonal" >
+                            <strong> {{tutor.personaNombre | titlecase }} </strong> |
+                            <span class="text-primary"> {{ tutor.nombreTippo | uppercase }} </span>
+                        </option>
+                </select>
+            </div>
+
+            <div class="m-2 d-flex flex-column col-6">
+                <label for="idAlumno">
+                    Grupo de Alumnos <strong class="text-danger">*</strong>
+                </label>
+                <div class="d-flex">
+                    <input class="inpForms form-control rounded-pill"
+                           formControlName="idAlumno" 
+                           #idAlumno id="idAlumno" readonly >
+                           <button mat-mini-fab type="button"
+                                   (click)="openDialog()"
+                                   color="primary">
+                                   <mat-icon>search</mat-icon>
+                           </button>
+                </div>
+            </div>
+
+        </div>
+
+        </form>
+
+    </section>
+    <div class="d-flex justify-content-end align-items-center">
+        <button mat-flat-button color="warn" (click)="limpiar()" *ngIf="_cancel">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button type="submit" (click)="onSubmit()" class="m-2"  mat-flat-button color="primary" style="margin-right: 15px;">
+            <mat-icon>{{icon_button}}</mat-icon> {{textButton}} Proceso
+        </button>
+    </div>
+</section>
+<hr>
+<section class="header p-3">
+  <h2 class="d-flex align-items-center"><mat-icon>account_tree</mat-icon> Procesos Creados</h2>
+</section>
+<section class="body p-3">
+    <div class="mb-2 d-flex">
+        <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+               (keyup)="applyFilter($event)" #input 
+               placeholder="Busqueda de procesos...">
+    </div>
+    <div class="table-responsive w-100">
+        <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100" >
+
+            <ng-container matColumnDef="edit">
+                
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  <span>
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+                  </span>
+                  <span>
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </span>
+                </th>
+                
+                <td mat-cell *matCellDef="let row">
+                  <span class="edit" (click)="catchData( row.fecInicio, row.fecFin, row.horas, row.idAlumno, row.idProcesos, row.idProyecto, row.numeroProceso, row.idDecanoVinculacion, row.idTutorVinculacion, row.idCoordinadorGeneral, row.nombreGrupo )" >
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+                  </span>
+                  <span class="delete">
+                    <mat-icon (click)="eliminarProceso(row.idProcesos)">
+                      delete
+                    </mat-icon>
+                  </span>
+                </td>
+
+              </ng-container>
+
+            <ng-container matColumnDef="Numero Proceso">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Número Proceso
+              </th>
+              <td mat-cell *matCellDef="let row" title="{{row.numeroProceso}}">
+                {{row.numeroProceso}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="horas">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Horas
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.horas}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="fecInicio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Fecha Inicio
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.fecInicio | date: 'dd-MMM-yyyy' }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="fecFin">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Fecha Fin
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.fecFin | date: 'dd-MMM-yyyy' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombreProyecto">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Nombre Proyecto
+              </th>
+              <td mat-cell *matCellDef="let row" title="{{row.nombreProyecto}}">
+                {{row.nombreProyecto}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Decano">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Decano
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.decano}}
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Tutor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+                  Tutor
+              </th>
+              <td mat-cell *matCellDef="let row">
+                  {{row.tutor}}
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="coordinadorGeneral">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Coordinador General
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.coordinadorGeneral}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombreGrupo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Grupo
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.nombreGrupo}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Correo Inst.">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Correo Inst.
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.correoInstitucional   }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+        
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                Datos no encontrados...
+              </td>
+            </tr>
+        </table>
+        <mat-paginator [length]="100"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page">
+  </mat-paginator>    
+    </div>
+
+</section>

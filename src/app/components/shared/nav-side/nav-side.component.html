@@ -1,0 +1,40 @@
+
+<div class="nav-side">
+
+    <section class="headNavSide mb-2 p-3">
+        <!-- Módulos del {{_tipo_persona}} -->
+        <div class="imagen">
+            <div class="imgTest rounded-2" [ngStyle]="{'background-image': 'url('+_IMGE+')'}" ></div>
+        </div>
+        <div class="mt-2 ">
+            <div class="text-light">
+                <span> 
+                    Bienvenid@ {{_username}}
+                </span>
+            </div>
+            <!-- <small class="link d-flex align-items-center mt-2" >
+                <mat-icon>manage_accounts</mat-icon> Editar mi perfil
+            </small> -->
+            <div (click)="closeSession()" class="cerrar btn btn-outline-warning d-flex mt-2 align-items-center">
+                <mat-icon>close</mat-icon> Cerrar mi sesión
+            </div>
+        </div>
+    </section>
+    <mat-divider></mat-divider>
+    <div class="bodynavSide mt-2 p-1">
+        <div *ngFor="let modulos of modulosLista" class="nav w-100 mt-1 p-2" (click)="botonClick(modulos.moduleName);">
+            <span class=" module d-flex justify-content-start align-items-center" >
+                <mat-icon>
+                    {{modulos.icon}}
+                </mat-icon>
+                <span>
+                    {{modulos.moduleName}}             
+                </span>
+            </span>
+        </div>
+        
+    </div>
+
+</div>
+
+

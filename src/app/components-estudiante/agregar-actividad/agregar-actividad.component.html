@@ -1,0 +1,303 @@
+
+<section class="header p-3">
+    <h2>Registrar Actividad / <span class="text-primary" *ngFor="let alumno of alumnoGrupoLista">
+         {{alumno.nombreGrupo | uppercase }}
+         </span> 
+    </h2>
+    <small></small>
+</section>
+
+<section class="m-2 p-2">
+    <div class="d-flex justify-content-between p-2" *ngFor="let alumno of alumnoGrupoLista">
+        <small class="dtext"> ESTE PROCESO INICIA EL <strong class="text-primary"> {{fechaInicioProceso | date: 'dd-MM-yyyy'}} </strong> 
+            Y TERMINA EL <strong class="text-primary"> {{fechaFinalProceso | date: 'dd-MM-yyyy'}} </strong>
+        </small>
+        <span class="dtext"> Tu progreso en este proyecto es de <strong> ( {{totalHorasLaboradas}} H. ) </strong> de <strong class="text-success" > ( {{alumno.horas}} H. ) </strong> </span>
+    </div>
+    <div class="progress">
+        <div class="progress-bar  progress-bar-striped progress-bar-animated"
+             role="progressbar"  [ngStyle]="{width: procentajeTrabajado + '%'}" 
+             aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+                {{procentajeTrabajado | number: '1.2-2' }}%
+            </div>
+    </div>
+</section>
+
+<section class="table p-3 w-100">    
+    
+    <section #editDom class="edit-section d-flex flex-wrap mb-2 animate__animated animate__fadeInRight">
+        <div class="w-25 p-3" >
+            <label class="d-flex  flex-column" for="fileUp">
+                <div class="d-flex align-items-center mb-2">
+                    <mat-icon>photo_camera</mat-icon>
+                    Fotografía
+                </div>
+                <div [ngStyle]="{'background-image': 'url('+_IMGE+')'}" 
+                     class="box-image d-flex align-items-center justify-content-center">
+                    <input type="file" id="fileUp" class="fileUp" 
+                           (change)="encodeImageFileAsURL(); validacionImagen();">
+                </div>
+            </label>    
+            <button mat-mini-fab color="warn"
+                    class="buttonCancel d-flex align-items-center"
+                    (click)="limpiarImagen()" 
+                    *ngIf="buttonCancelImagen">
+                    <mat-icon>cancel</mat-icon>
+            </button>
+            <div class="m-2 d-flex flex-column w-100"  >
+                <label for="idProcesos">Título de la imagen</label>
+                <input type="text" class="inpForms form-control rounded-pill" [disabled]="titleImagen"
+                        [(ngModel)]="_descrip_image">
+            </div>
+        </div>
+        <div class="w-75">
+        <form [formGroup]="agregarActividadForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center flex-column align-items-end w-100">
+            <div class="d-flex justify-content-between  flex-wrap align-items-end  ">
+            
+            <!-- <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Nombre de la Actividad</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombreActivity" 
+                       #nombreActivity id="nombreActivity" >
+            </div> -->
+
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombreActivity">Tipo de Actividad</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="nombreActivity" #nombreActivity id="nombreActivity" aria-label="">
+                        <option *ngFor="let actividades of listaActividades" [value]="actividades.codigo" >
+                            {{actividades.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Descripción de la Actividad</label>
+                <textarea class="inpForms form-control rounded"
+                       formControlName="descriptionActivity" rows="5" 
+                       #descriptionActivity id="descriptionActivity" >
+                </textarea>
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Fecha de registro de actividad</label>
+                <input type="date" class="inpForms form-control rounded-pill"
+                       formControlName="fecCreacion" (keyup)="validateDate()"
+                       (change)="validateDate()"
+                       #fecCreacion id="fecCreacion" >
+            </div>
+            <!-- <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Hora de Inicio (24H)</label>
+                <input type="time" class="inpForms form-control rounded-pill"
+                       formControlName="horaIni" 
+                       #horaIni id="horaIni" >
+            </div> -->
+
+            <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Horas Trabajadas</label>
+                <input type="Number" min="1" max="6" (keyup)="validate()" class="inpForms form-control rounded-pill"
+                       formControlName="horas" 
+                       #horas id="horas" >
+            </div>
+
+            <!-- <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Hora de Finalización (24H) </label>
+                <input type="time" class="inpForms form-control rounded-pill"
+                       formControlName="horaFin"  
+                       #horaFin id="horaFin" >
+            </div>-->
+
+            <div class="m-2 d-flex flex-column col-5" [title]="proyectoNombre">
+                <label for="feInicio">Proyecto</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="idProyecto" 
+                       #idProyecto id="idProyecto" readonly>
+            </div>
+
+            <div class="m-2 d-flex flex-column col-2"  >
+                <label for="idProcesos">Proceso</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="idProcesos" 
+                       #idProcesos id="idProcesos" readonly >
+            </div>
+
+            <!-- <div class="m-2 d-flex flex-column col">
+                <label for="idProcesos">Asignar Proceso</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idProcesos" #idProcesos id="idProcesos" aria-label="">
+                        <option *ngFor="let proceso of listaProcesos" [value]="proceso.idProcesos" >
+                            N. Proceso: {{proceso.numeroProceso | titlecase }} | Grupo: {{ proceso.nombreGrupo }}                                
+                        </option>
+                </select>
+            </div> -->
+
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Observación</label>
+                <textarea class="inpForms form-control rounded"
+                       formControlName="observaciones" rows="3" 
+                       #observaciones id="observaciones" >
+                </textarea>
+            </div>
+
+        </div>
+
+        </form>
+    </div>
+    </section>
+    <!-- <section class=" edit-section p-4 mb-3 d-flex flex-wrap justify-content-start">
+        <div class="w-25" >
+            <label class="d-flex  flex-column" for="fileUp">
+                <div class="d-flex align-items-center mb-2">
+                    <mat-icon>photo_camera</mat-icon>
+                    Fotografía
+                </div>
+                <div [ngStyle]="{'background-image': 'url('+_IMGE+')'}" 
+                     class="box-image d-flex align-items-center justify-content-center">
+                    <input type="file" id="fileUp" class="fileUp" 
+                           (change)="encodeImageFileAsURL()">
+                </div>
+            </label>    
+            <div class="m-2 d-flex flex-column w-100"  >
+                <label for="idProcesos">Título de la imagen</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                        [(ngModel)]="_descrip_image">
+            </div>
+            <button mat-raised-button color="warn"
+                    style="width: 172px;"
+                    class="d-flex align-items-center justify-content-center"
+                    (click)="saveImagen(_IMGE)" >
+                <mat-icon>add_photo_alternate</mat-icon>Subir la imagen
+            </button>
+        </div>
+        <div>
+            Lista de imagenes guardadas
+            <div class="d-flex justify-content-start flex-wrap">
+                <div class="box-image-save" 
+                     *ngFor="let img of imagenLista" 
+                     [ngStyle]="{'background-image': 'url('+img.imagen+')'}" 
+                     >                
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <div class="d-flex justify-content-end align-items-center">
+        <button mat-flat-button 
+                color="warn" 
+                (click)="limpiar()" *ngIf="_cancel">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button type="submit"
+                [disabled]="dis_button_actividad"
+                class="m-2"
+                (click)="onSubmit()"
+                mat-flat-button
+                color="primary"
+                style="margin-right: 15px;">
+            <mat-icon>{{icon_button}}</mat-icon>
+             {{textButton}} registro de actividad
+        </button>
+    </div>
+</section>
+
+<hr>
+
+<div class="table-responsive w-100 p-3">
+    <div>
+        <h2 class="d-flex align-items-center">
+            <mat-icon>emoji_people</mat-icon>
+            Actividades Registradas
+        </h2>
+    </div>
+    
+    <div class="mb-2 d-flex">
+        <input class=" w-100 form-control rounded-pill"
+               fxFlex="auto" type="text"
+               (keyup)="applyFilter($event)"
+               #input 
+               placeholder="Busqueda de Actividades....">
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100" >
+
+        <ng-container matColumnDef="edit">
+            
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <span>
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </span>
+              <span>
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </span>
+            </th>
+            
+            <td mat-cell *matCellDef="let row">
+              <span class="edit" (click)="catcthData(row)">
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </span>
+              <span class="delete">
+                <mat-icon  >
+                  delete
+                </mat-icon>
+              </span>
+            </td>
+
+          </ng-container>
+
+        <ng-container matColumnDef="Fecha Creación">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Fecha Creación
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.fecCreacion | date: 'short'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreActivity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombres
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.nombreActivity}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcionActivity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Descripción
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.descriptionActivity}}
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="horas">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+              Horas
+          </th>
+          <td mat-cell *matCellDef="let row">
+              {{row.horas}}
+          </td>
+        </ng-container>        
+
+        <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            Datos no encontrados...
+          </td>
+        </tr>
+    </table>
+    <mat-paginator [length]="100"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   aria-label="Select page">
+</mat-paginator>    
+</div>
+

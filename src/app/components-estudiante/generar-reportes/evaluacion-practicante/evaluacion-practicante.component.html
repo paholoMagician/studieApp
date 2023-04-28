@@ -1,0 +1,1251 @@
+
+<div class="d-flex justify-content-center flex-column align-items-center" >
+
+    <div class="titledata mt-2 mb-2 w-100 d-flex justify-content-between">
+        <span>
+            <h3 class="m-0">Proyecto Asignado:
+                <strong> {{_nombreProyecto | uppercase}} </strong>
+                 &nbsp;&nbsp; Número de Proceso 
+                <strong> {{_numeroProceso}} </strong>
+            </h3>
+        </span>
+        <span>
+            <button mat-raised-button color="warn" (click)="downloadPDF(_numeroProceso+'-(FERIPC-5)')" >
+                <mat-icon>picture_as_pdf</mat-icon>     Descargar PDF
+            </button>
+        </span>
+    </div>
+    <div class="body-reporte p-4 d-flex justify-content-center flex-column mt-2 shadow-lg">
+
+        <div class="title">
+            CALIFICACIÓN Y RENDIMIENTO DEL PRACTICANTE
+        </div>
+
+        <div class="mt-4 p-4">
+            <form [formGroup]="validacionForm" (ngSubmit)="onSubmit()">
+                <div class="titleData d-flex text-light  justify-content-end align-items-center  mt-2">
+                    <span class="bg-secondary shadow rounded-pill p-2">ASPECTO TÉCNICO</span>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="con_parti"
+                        class="form-label w-75 d-flex align-items-center">
+                        <mat-icon>noise_aware</mat-icon>
+                        Los conocimientos del practicante aseguran una exitosa realización de los trabajos
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(1)"
+                        formControlName="con_parti"
+                        #con_parti id="con_parti" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style=" margin-left: 15px; height: 35px;" > <h2> {{conocimientos_practicante}} </h2></span>
+
+                    </div>
+
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="con_partiobs1"
+                               #con_partiobs1 id="con_partiobs1"
+                               (keyup)="addCalificacion('con_parti')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="interes_aprender_en"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra interés y entusiasmo en aprender
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(2);"
+                        formControlName="interes_aprender_en"
+                        #interes_aprender_en id="interes_aprender_en" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{interes_aprender}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="con_partiobs2"
+                               #con_partiobs2 id="con_partiobs2"
+                               (keyup)="addCalificacion('con_parti')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="posee_iniciativa_con"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Posee iniciativa, constantemente pregunta por nuevos trabajos
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(3)"
+                        formControlName="posee_iniciativa_con"
+                        #posee_iniciativa_con id="posee_iniciativa_con" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{posee_iniciativa}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="con_partiobs3"
+                               #con_partiobs3 id="con_partiobs3"
+                               (keyup)="addCalificacion('con_parti')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="demuestra_capacidad_en"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra capacidad en la realización de sus trabajos
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(4)"
+                        formControlName="demuestra_capacidad_en"
+                        #demuestra_capacidad_en id="demuestra_capacidad_en" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{demuestra_capacidad}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="con_partiobs4"
+                               #con_partiobs4 id="con_partiobs4"
+                               (keyup)="addCalificacion('con_parti')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_habil_para"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es hábil para poner en práctica ideas propias o ajenas
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(5)"
+                        formControlName="es_habil_para"
+                        #es_habil_para id="es_habil_para" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_habil}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="con_partiobs5"
+                               #con_partiobs5 id="con_partiobs5"
+                               (keyup)="addCalificacion('con_parti')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="titleData d-flex text-light  justify-content-end align-items-center  mt-4">
+                    <span class="bg-secondary shadow rounded-pill p-2">ASPECTO OPERATIVO</span>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="demuestra_compromiso"
+                           class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra compromiso en la realización de sus trabajos
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(6)"
+                        formControlName="demuestra_compromiso"
+                        #demuestra_compromiso id="demuestra_compromiso" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{demuestra_comprom}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="interes_aprender_enobs1"
+                               #interes_aprender_enobs1 id="interes_aprender_enobs1"
+                               (keyup)="addCalificacion('demuestra_compromiso')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_constante"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es constante y siempre muy predispuesto a desempeñar la labor
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(7)"
+                        formControlName="es_constante"
+                        #es_constante id="es_constante" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_constante_y}}
+                            </h2>
+                        </span>
+
+                    </div>
+
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="interes_aprender_enobs2"
+                               #interes_aprender_enobs2 id="interes_aprender_enobs2"
+                               (keyup)="addCalificacion('interes_aprender_en')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="cumple_exactitud_esm"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Cumple con exactitud, esmero y orden los trabajos
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(8)"
+                        formControlName="cumple_exactitud_esm"
+                        #cumple_exactitud_esm id="cumple_exactitud_esm" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{cumple_exactitud}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="interes_aprender_enobs3"
+                               #interes_aprender_enobs3 id="interes_aprender_enobs3"
+                               (keyup)="addCalificacion('interes_aprender_en')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="actua_voluntariamente"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Actúa voluntariamente en los trabajos de rutina
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(9)"
+                        formControlName="actua_voluntariamente"
+                        #actua_voluntariamente id="actua_voluntariamente" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{actua_voluntariamente_en}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="interes_aprender_enobs4"
+                               #interes_aprender_enobs4 id="interes_aprender_enobs4"
+                               (keyup)="addCalificacion('interes_aprender_en')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="titleData d-flex text-light  justify-content-end align-items-center  mt-4">
+                    <span class="bg-secondary shadow rounded-pill p-2">ASPECTO SOCIAL</span>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="actitud_positiva"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Su actitud es proactiva y facilita la tarea en equipo
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(10)"
+                        formControlName="actitud_positiva"
+                        #actitud_positiva id="actitud_positiva" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{actitud_posi}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="posee_iniciativa_conobs1"
+                               #posee_iniciativa_conobs1 id="posee_iniciativa_conobs1"
+                               (keyup)="addCalificacion('posee_iniciativa_con')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="coopera_manera"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Coopera de manera permanente y espontánea
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(11)"
+                        formControlName="coopera_manera"
+                        #coopera_manera id="coopera_manera" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{coopera_manera_perm}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="posee_iniciativa_conobs2"
+                               #posee_iniciativa_conobs2 id="posee_iniciativa_conobs2"
+                               (keyup)="addCalificacion('posee_iniciativa_con')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>  
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_respetuoso"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es respetuos@ 
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(12)"
+                        formControlName="es_respetuoso"
+                        #es_respetuoso id="es_respetuoso" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_resp}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="posee_iniciativa_conobs3"
+                               #posee_iniciativa_conobs3 id="posee_iniciativa_conobs3"
+                               (keyup)="addCalificacion('posee_iniciativa_con')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+
+                </div>  
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="demuestra_habilidades_lid"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra habilidades de liderazgo en los trabajos en equipo
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(13)"
+                        formControlName="demuestra_habilidades_lid"
+                        #demuestra_habilidades_lid id="demuestra_habilidades_lid" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{demuestra_habilidades}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="posee_iniciativa_conobs4"
+                               #posee_iniciativa_conobs4 id="posee_iniciativa_conobs4"
+                               (keyup)="addCalificacion('posee_iniciativa_con')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="demuestra_cuidadoso_en"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra ser cuidadoso en su presentación personal
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(14)"
+                        formControlName="demuestra_cuidadoso_en"
+                        #demuestra_cuidadoso_en id="demuestra_cuidadoso_en" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{demuestra_cuidadoso}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="posee_iniciativa_conobs5"
+                               #posee_iniciativa_conobs5 id="posee_iniciativa_conobs5"
+                               (keyup)="addCalificacion('posee_iniciativa_con')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                    
+                </div>
+
+                <div class="titleData d-flex text-light  justify-content-end align-items-center  mt-4">
+                    <span class="bg-secondary shadow rounded-pill p-2">ASPECTO ESTRATÉGICO</span>
+                </div>  
+
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="demuestra_eficaz"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Demuestra ser eficaz en el análisis y resolución de problemas
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(15)"
+                        formControlName="demuestra_eficaz"
+                        #demuestra_eficaz id="demuestra_eficaz" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{demuestra_eficaz_en}}
+                            </h2>
+                        </span>
+                        
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="demuestra_eficazobs1"
+                               #demuestra_eficazobs1 id="demuestra_eficazobs1"
+                               (keyup)="addCalificacion('demuestra_eficaz')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_creativo_prop"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es creativo y propone soluciones y/o alternativas para mejorar situaciones de trabajo
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(16)"
+                        formControlName="es_creativo_prop"
+                        #es_creativo_prop id="es_creativo_prop" 
+                        class="form-range"   min="1" max="5">
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_creativo_propone}}
+                            </h2>
+                        </span>
+                        
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="demuestra_eficazobs2"
+                               #demuestra_eficazobs2 id="demuestra_eficazobs2"
+                               (keyup)="addCalificacion('demuestra_eficaz')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_perseverante_cu"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es perseverante, cuando debe enfrentar situaciones difíciles de trabajo, hasta que éste quede resuelto
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(17)"
+                        formControlName="es_perseverante_cu"
+                        #es_perseverante_cu id="es_perseverante_cu" 
+                        class="form-range"   min="1" max="5" >
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_perseverante}}
+                            </h2>
+                        </span>
+                        
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="demuestra_eficazobs3"
+                               #demuestra_eficazobs3 id="demuestra_eficazobs3"
+                               (keyup)="addCalificacion('demuestra_eficaz')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap m-2">
+                    
+                    <label for="es_puntual_en"
+                        class="form-label w-75 d-flex align-items-center">
+                    <mat-icon>noise_aware</mat-icon>
+                    Es puntual en el trabajo
+                    </label>
+                    
+                    <div class="w-25 d-flex align-items-center" >
+                        <input type="range" (change)="dataSend(18)"
+                        formControlName="es_puntual_en"
+                        #es_puntual_en id="es_puntual_en" 
+                        class="form-range"   min="1" max="5" >
+                        <span class="badge bg-danger shadow" style="margin-left: 15px; height: 35px;" > 
+                            <h2> 
+                                {{es_puntual}}
+                            </h2>
+                        </span>
+
+                    </div>
+                    <div class="w-100">
+                        <input type="text" 
+                               formControlName="demuestra_eficazobs4"
+                               #demuestra_eficazobs4 id="demuestra_eficazobs4"
+                               (keyup)="addCalificacion('demuestra_eficaz')"
+                               placeholder="Observación"
+                               class="form-control">
+                    </div>                    
+                </div>
+                <!-- <div class="w-100 d-flex justify-content-center mt-4 ">
+                    <button mat-raised-button color="warn" >
+                        <mat-icon>star</mat-icon> Calificar
+                    </button>
+                </div> -->
+
+                <div class="w-100">
+
+                    <textarea formControlName="observaciones_generales" 
+                              id="observaciones_generales"
+                              (keyup)="addCalificacion('observaciones_generales')"
+                              #observaciones_generales 
+                              class="w-100 rounded p-3"
+                              rows="5" placeholder="Observaciones generales">
+                    </textarea>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    
+    <div #content class="body-reporte d-flex justify-content-center flex-column mt-2 shadow-lg">
+
+        <div class="d-flex justify-content-center flex-column align-items-center">
+            <section class="header w-100">
+                <h1 class="d-flex justify-content-center" style="font-weight: bold;" >
+                    UNIVERSIDAD DE GUAYAQUIL 
+                </h1>
+                <h3 class="d-flex justify-content-center" style="text-align: center;">
+                    GESTIÓN SOCIAL DEL CONOCIMIENTO 
+                    <br>
+                    PRÁCTICAS DE SERVICIO COMUNITARIO
+                </h3>                    
+                <div class="title w-100">
+                    FICHA DE EVALUACIÓN Y RENDIMIENTO DEL PRACTICANTE (FERIPC-5)
+                </div>
+            </section>
+            <section class="sub-header mt-2 w-100">
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        LUGAR Y FECHA: 
+                            <strong> 
+                            <span>{{provinicaInstituto | uppercase}}  </span>
+                            <span class="p-2 rounded-pill bg-secondary ml-3 text-light">{{fecFin | date: 'dd-MM-YYYY' }} </span>
+                            </strong> 
+                    </h3>
+                </div>
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        NOMBRES Y APELLIDOS DEL ESTUDIANTE: 
+                        <strong> {{_estudiante | uppercase}} </strong> 
+                    </h3>
+                </div>
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        FACULTAD: 
+                        <strong> {{_facultad | uppercase}} </strong> 
+                    </h3>
+                </div>
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        CARRERA: 
+                        <strong> {{_carrera | uppercase}} </strong> 
+                    </h3>
+                </div>
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        NOMBRE DE LA INSTITUCIÓN: 
+                        <strong> {{_nombreInstituto | uppercase}} </strong> 
+                    </h3>
+                </div>
+                <div class=" p-1">
+                    <h3 class="m-0 p-0">
+                        NOMBRE SUPERVISOR DE LA INSTITUCIÓN: 
+                        <strong> {{_supervisor | uppercase}} </strong> 
+                    </h3>
+                </div>
+            </section>   
+            <section class="w-100 mt-4 d-flex flex-column" >
+                <span>
+                    Indique con una X la calificación que usted considere adecuada, según la siguiente escala
+                </span>
+                <span class="mt-3 d-flex justify-content-center"    >
+                    <strong>
+                        5 EXCELENTE
+                        <br>4 MUY SATISFACTORIO
+                        <br>3 SATISFACTORIO
+                        <br>2 POCO SATISFACTORIO
+                        <br>1 NADA SATISFACTORIO
+                    </strong>
+                </span>
+            </section>
+            <section class="w-100 mt-4" >
+                <div class="container-calificacion">
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data">
+                            VALORACIÓN
+                        </div>
+                        <div class="califcacion d-flex justify-content-stretch align-items-center">
+
+                            <div class="cal">
+                                1
+                            </div>
+                            <div class="cal">
+                                2
+                            </div>
+                            <div class="cal">
+                                3
+                            </div>
+                            <div class="cal">
+                                4
+                            </div>
+                            <div class="cal">
+                                5
+                            </div>
+
+                        </div>
+                        <div class="data">
+                            OBSERVACIONES
+                        </div>
+                    </div>
+
+                    <div class="title w-100 d-flex mt-2 justify-content-center align-items-center " >
+                        <strong> ASPECTO TÉCNICO </strong>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data col-5 p-2 ">
+                            Los conocimientos del practicante aseguran una 
+                            exitosa realización de los trabajos
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+
+                            <div class="cal">
+                                <mat-icon>{{conprac_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{conprac_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{conprac_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{conprac_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{conprac_5}}</mat-icon>
+                            </div>
+
+                        </div>
+                        <div class="data p-2 col-3">                            
+                            <div class="w-100">
+                                {{conprac_1_obs}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra interés y entusiasmo en aprender
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+
+                            <div class="cal">
+                                <mat-icon>{{demin_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demin_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demin_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demin_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demin_5}}</mat-icon>
+                            </div>
+
+                        </div>
+                        <div class="data p-2 col-3">                            
+                            <div class="w-100">
+                                {{conprac_2_obs}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Posee iniciativa, constantemente pregunta por nuevos trabajos
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{posini_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{posini_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{posini_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{posini_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{posini_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">                            
+                            <div class="w-100">
+                                {{conprac_3_obs}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra capacidad en la realización de sus trabajos
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{decap_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{decap_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{decap_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{decap_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{decap_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">                            
+                            <div class="w-100">
+                                {{conprac_4_obs}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es hábil para poner en práctica ideas propias o ajenas
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{habpar_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{habpar_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{habpar_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{habpar_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{habpar_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">                            
+                            <div class="w-100">
+                                {{conprac_5_obs}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="title w-100 d-flex mt-2 justify-content-center align-items-center " >
+                        <strong> ASPECTO OPERATIVO </strong>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra compromiso en la realización de sus trabajos
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{demcomp_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demcomp_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demcomp_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demcomp_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demcomp_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demcomp_1_obs}}
+                        </div>
+
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es constante y siempre muy predispuesto a desempeñar la labor
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{econst_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{econst_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{econst_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{econst_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{econst_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demcomp_2_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Cumple con exactitud, esmero y orden los trabajos
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{cumpex_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{cumpex_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{cumpex_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{cumpex_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{cumpex_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demcomp_3_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Actúa voluntariamente en los trabajos de rutina
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{acvont_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{acvont_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{acvont_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{acvont_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{acvont_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demcomp_4_obs}}
+                        </div>
+                    </div>
+
+                    <div class="title w-100 d-flex mt-2 justify-content-center align-items-center " >
+                        <strong> ASPECTO SOCIAL </strong>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Su actitud es proactiva y facilita la tarea en equipo
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{actituproa_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{actituproa_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{actituproa_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{actituproa_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{actituproa_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{posini_1_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Coopera de manera permanente y espontánea
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{copperm_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{copperm_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{copperm_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{copperm_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{copperm_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{posini_2_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es respetuos@
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{respe_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{respe_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{respe_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{respe_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{respe_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{posini_3_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra ser cuidadoso en su presentación personal
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{demupres_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demupres_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demupres_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demupres_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demupres_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{posini_4_obs}}
+                        </div>
+                    </div>
+
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra habilidades de liderazgo en los trabajos en equipo
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{demuha_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuha_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuha_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuha_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuha_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{posini_5_obs}}
+                        </div>
+                    </div>
+
+                    <div class="title w-100 d-flex mt-2 justify-content-center align-items-center " >
+                        <strong> ASPECTO ESTRATÉGICO </strong>
+                    </div>
+
+                    
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Demuestra ser eficaz en el análisis y resolución de problemas
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{demuefic_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuefic_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuefic_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuefic_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{demuefic_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demuefic_1_obs}}
+                        </div>
+                    </div>
+                    
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es creativo y propone soluciones y/o alternativas para mejorar situaciones de trabajo
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{creapro_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{creapro_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{creapro_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{creapro_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{creapro_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demuefic_2_obs}}
+                        </div>
+                    </div>
+                    
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es perseverante, cuando debe enfrentar situaciones difíciles de trabajo, hasta que éste quede resuelto
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{persevenf_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{persevenf_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{persevenf_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{persevenf_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{persevenf_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demuefic_3_obs}}
+                        </div>
+                    </div>
+                    
+                    <div class="data-calificacion w-100 d-flex justify-content-around align-items-center">
+
+                        <div class="data p-2 col-5">
+                            Es puntual en el trabajo
+                        </div>
+                        <div class="califcacion p-2 col-2 d-flex justify-content-stretch align-items-center">
+                            <div class="cal">
+                                <mat-icon>{{putrab_1}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{putrab_2}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{putrab_3}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{putrab_4}}</mat-icon>
+                            </div>
+                            <div class="cal">
+                                <mat-icon>{{putrab_5}}</mat-icon>
+                            </div>
+                        </div>
+                        <div class="data p-2 col-3">
+                            {{demuefic_4_obs}}
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+            <section class="mt-4 w-100">
+
+                <span>
+                    <h3> <strong> OBSERVACIONES GENERALES </strong> </h3>
+                </span>
+                <div class="areaObserv w-100 rounded w-100 p-3" >
+                    {{obs_generales}}
+                </div>
+
+            </section>
+
+            <section style="margin-top: 150px;" class="   d-flex justify-content-around w-100" >
+
+                <span>
+                    <h3 style="border-top: solid 2px rgb(77, 77, 77);">
+                        FIRMA DEL SUPERVISOR DE LA INSTITUCIÓN
+                    </h3>
+                </span>
+
+                <span>
+                    <h3>SELLO DE LA INSTITUCIÓN</h3>
+                </span>
+
+            </section>
+
+        </div>
+
+    </div>
+    
+</div>
+

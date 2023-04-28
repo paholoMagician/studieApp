@@ -1,0 +1,272 @@
+<section class="header p-3">
+    <h2>Perfil</h2>
+    <small></small>
+</section>
+
+<section class="table p-3 w-100">
+    <!-- <section class="headNavSide mb-2 p-3">
+
+    </section> -->
+    
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+        <h3 class="p-2 d-flex  align-items-start">
+            <mat-icon >settings</mat-icon>
+            <span style="margin-left: 10px;"> 
+                Editar perfil
+            </span>
+        </h3>
+        <hr>
+        <div class="d-flex flex-wrap p-2">
+        <div class="w-25">
+            <label for="fileUp" id="imageUp" class="d-flex justify-content-center w-100">
+                <div class="imgTest" [ngStyle]="{'background-image': 'url('+_IMGE+')'}" >
+                </div>
+
+            </label>
+            <input type="file" id="fileUp" (change)="encodeImageFileAsURL()">
+        </div>
+        <div class="w-75" *ngIf="_entidad_personal">
+        <form [formGroup]="perfilForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center align-items-end w-100">
+            <div class="d-flex justify-content-between flex-wrap align-items-end  ">
+            <div class="m-2 d-flex flex-column">
+                <label for="cedula">Cédula</label>
+                <input class="inpForms form-control rounded-pill" 
+                       formControlName="cedula"                       
+                       #cedula id="cedula" 
+                       type="text" 
+                       placeholder="">
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="nombres">Nombre y apellido</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombrePersonal" 
+                       #nombrePersonal id="nombrePersonal" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+              <label for="email">Correo Institucional</label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="email" 
+                     #email id="email" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+              <label for="emailPers">Correo Personal</label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="emailPers" 
+                     #emailPers id="emailPers" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="fechaNacim">Edad</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="edad" 
+                       #edad id="edad" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Sexo</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="sexo" #sexo id="sexo" aria-label="">
+                        <option *ngFor="let sexo of sexoLista" [value]="sexo.codigo" >
+                            {{sexo.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            
+            <!-- <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                <mat-label>
+                    Provincia:
+                </mat-label>
+                <mat-select formControlName="provincia" #provincia id="provincia" >
+                    <mat-option *ngFor="let provincia of provinciaLista" 
+                                [value]="provincia.codigo"
+                                (click)="getCantones(provincia.codigo)">
+                                {{provincia.nombre | titlecase }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill" class="inpForms m-2 w-25">
+                <mat-label>
+                    Cantón:
+                </mat-label>
+                <mat-select formControlName="canton" #canton id="canton" >
+                    <mat-option *ngFor="let canton of cantonLista" [value]="canton.codigo">
+                        {{canton.nombre | titlecase }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Facultad</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="facultad" #facultad id="facultad" aria-label="">
+                        <option *ngFor="let facultad of facultadLista" [value]="facultad.codigo" >
+                            {{facultad.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Carrera</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="carrera" #carrera id="carrera" aria-label="">
+                        <option *ngFor="let carrera of carrerasLista" [value]="carrera.codigo" >
+                            {{carrera.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex w-50 flex-column">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="direccion" 
+                       #direccion id="direccion" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="celular">Telf. Celular</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="celular" 
+                       #direccion id="celular">
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="telCasa">Telf. Casa</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="telCasa" 
+                       #telCasa id="telCasa">
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Tipo de persona</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="tipoPers" #tipoPers id="tipoPers" aria-label="">
+                        <option *ngFor="let tPersona of tipoPersonaLista" [value]="tPersona.codigo" >
+                            {{tPersona.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+        </div>
+        </form>
+        </div>
+        <div class="w-75" *ngIf="_entidad_alumno">
+            <form [formGroup]="alumnoForm"  (ngSubmit)="onSubmit()"
+                  class="d-flex justify-content-center align-items-end w-100">
+                <div class="d-flex justify-content-between flex-wrap align-items-end  ">
+                <div class="m-2 d-flex flex-column">
+                    <label for="cedula">Cédula</label>
+                    <input class="inpForms form-control rounded-pill" 
+                           formControlName="cedula"                       
+                           #cedula id="cedula" 
+                           type="text" 
+                           placeholder="">
+                </div>
+                <div class="m-2 d-flex flex-column">
+                    <label for="nombres">Nombre y apellido</label>
+                    <input class="inpForms form-control rounded-pill"
+                           formControlName="alumnoNombre" 
+                           #alumnoNombre id="alumnoNombre" >
+                </div>
+                <div class="m-2 d-flex flex-column">
+                  <label for="correoInstitucional">
+                    Correo Institucional
+                  </label>
+                  <input class="inpForms form-control rounded-pill"
+                         formControlName="correoInstitucional" 
+                         #correoInstitucional 
+                         id="correoInstitucional" >
+                </div>
+                <div class="m-2 d-flex flex-column">
+                  <label for="correoPersonal">Correo Personal</label>
+                  <input class="inpForms form-control rounded-pill"
+                         formControlName="correoPersonal" 
+                         #correoPersonal id="correoPersonal" >
+                </div>
+                <div class="m-2 d-flex flex-column">
+                    <label for="fechaNacim">Edad</label>
+                    <input type="number" class="inpForms form-control rounded-pill"
+                           formControlName="edad" 
+                           #edad id="edad" >
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="codSexo">Sexo</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="codSexo" #codSexo id="codSexo" aria-label="">
+                            <option *ngFor="let sexo of sexoLista" [value]="sexo.codigo" >
+                                {{sexo.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="idProvincia">Provincia</label>
+                    <select class="inpForms form-select rounded-pill w-100" 
+                            formControlName="idProvincia" #idProvincia 
+                            (change)="getCantones()"
+                            id="idProvincia" aria-label="">
+                            <option *ngFor="let provincia of provinciaLista"                                     
+                                    [value]="provincia.codigo">
+                                    {{provincia.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="idCanton">Cantón</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="idCanton" #idCanton id="idCanton" aria-label="">
+                            <option *ngFor="let canton of cantonLista" [value]="canton.codigo" >
+                                {{canton.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="codFacultad">Facultad</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="codFacultad" #codFacultad id="codFacultad" aria-label="">
+                            <option *ngFor="let facultad of facultadLista" [value]="facultad.codigo" >
+                                {{facultad.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="codCarrera">Carrera</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="codCarrera" #codCarrera id="codCarrera" aria-label="">
+                            <option *ngFor="let carrera of carrerasLista" [value]="carrera.codigo" >
+                                {{carrera.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column">
+                    <label for="semestreNivel">Semestre</label>
+                    <input type="number" 
+                           class="inpForms form-control rounded-pill"
+                           formControlName="semestreNivel" 
+                           #semestreNivel id="semestreNivel" >
+                </div>
+                <div class="m-2 d-flex w-50 flex-column">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="inpForms form-control rounded-pill"
+                           formControlName="direccion" 
+                           #direccion id="direccion" >
+                </div>
+                <div class="m-2 d-flex flex-column">
+                    <label for="telefonoCelular">Telf. Celular</label>
+                    <input type="number" class="inpForms form-control rounded-pill"
+                           formControlName="telefonoCelular" 
+                           #telefonoCelular id="telefonoCelular">
+                </div>
+                <div class="m-2 d-flex flex-column">
+                    <label for="telefonoCasa">Telf. Casa</label>
+                    <input type="number" class="inpForms form-control rounded-pill"
+                           formControlName="telefonoCasa" 
+                           #telefonoCasa id="telefonoCasa">
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    </section>
+    <div class="d-flex justify-content-end">
+        <button mat-raised-button type="submit" (click)="onSubmit()"
+                class="m-2 btn btn-success" style="margin-right: 25px !important;">
+            <!-- <mat-icon>{{_icon}}</mat-icon> {{_msj}} Personal -->
+            <mat-icon>refresh</mat-icon> Actualizar {{_entidad}}
+        </button>
+    </div>
+
+</section>

@@ -1,0 +1,169 @@
+
+<div class=" d-flex justify-content-center flex-column align-items-center" >
+
+    <div class="titledata mt-2 mb-2 w-100">
+        <span>
+            <h3 class="m-0">Proyecto Asignado:
+                <strong> {{_nombreProyecto | uppercase}} </strong>
+                 &nbsp;&nbsp; Número de Proceso 
+                <strong> {{_numeroProceso}} </strong>
+            </h3>
+        </span>
+    </div>
+
+    <div class="body-reporte p-4 d-flex justify-content-center flex-column mt-2 shadow-lg">
+        <section class="header">
+            <h1 class="p-0 m-0 d-flex justify-content-center" style="font-weight: bold;" >
+                UNIVERSIDAD DE GUAYAQUIL 
+            </h1>
+            <h3 class="d-flex justify-content-center align-items-center m-0  flex-column" style="text-align: center;">
+                <strong>FACULTAD {{_facultad | uppercase}}</strong>
+                
+                <strong>{{_carrera | uppercase}}</strong>
+            </h3> 
+            <h4 class="m-0 d-flex justify-content-center">
+                <strong>GESTIÓN SOCIAL DEL CONOCIMIENTO</strong>
+            </h4>
+        </section>
+        <section class="encabezado w-100 mt-2" >
+            <p class="mt-4">
+                Guayaquil, 30 de noviembre de 2021   <br>
+            </p>
+            <p class="mt-4">
+                <strong>
+                    ING. IND. LUIS PILACUAN BONETE, MBA  <br>
+                    COORDINADOR (E) DPTO. GESTIÓN SOCIAL DEL CONOCIMIENTO – POR CIFI-UG <br>
+                    FACULTAD DE INGENIERÍA INDUSTRIAL <br>
+                    UNIVERSIDAD DE GUAYAQUIL <br>
+                </strong>
+            </p>
+            <p class="mt-4">
+                En su despacho. -
+            </p>
+            <p class="mt-4">
+                De acuerdo con la documentación recibida, informo que el Sr(ta) <strong>{{_estudiante | uppercase}}</strong>, estudiante de la 
+                carrera <strong> {{_carrera | uppercase}} </strong> con numero de cedula C.I. <strong> {{_cedula}} </strong> ha terminado las Prácticas de 
+                Servicio Comunitario con las siguientes novedades:
+            </p>
+        </section>
+        <section class="d-flex justify-content-center w-100 mt-2">
+            <div class="w-75">
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        Empresa
+                    </div>
+                    <div class="info w-75">
+                        <!-- info empresa o institutcion -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        LOCALIDAD
+                    </div>
+                    <div class="info w-75">
+                        <!-- info localidad -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        TIPO DE EMPRESA
+                    </div>
+                    <div class="info w-75">
+                        <!-- info empresa -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        TUTOR ACADÉMICO
+                    </div>
+                    <div class="info w-75">
+                        <!-- info tutor -->
+                    </div>
+                </div>  
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        FECHA INICIO
+                    </div>
+                    <div class="info w-75">
+                        <!-- info fecha inicio -->
+                    </div>
+                </div>  
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        FECHA FIN
+                    </div>
+                    <div class="info w-75">
+                        <!-- info fecha fin -->
+                    </div>
+                </div>  
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        N. HORAS <small class="text-secondary"> (96 mínimo) </small>
+                    </div>
+                    <div class="info w-75">
+                        <!-- info horas -->
+                    </div>
+                </div>  
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        VALORACIÓN INSTITUCIÓN
+                    </div>
+                    <div class="info w-75">
+                        <!-- info valoracion inst. -->
+                    </div>
+                </div>  
+                <div class="d-flex justify-content-stretch w-100">
+                    <div class="info w-25">
+                        VALORACIÓN TUTOR ACADÉMICO
+                    </div>
+                    <div class="info w-75">
+                        <!-- info valoracion tutor... -->
+                    </div>
+                </div>  
+            </div>
+        </section>
+        <section class="w-100 mt-4">
+            La documentación requerida como evidencia del desempeño de estas prácticas cumple con los requerimientos 
+            establecidos por la Coordinación de Gestión Social del Conocimiento de la Facultad de Ingeniería Industrial y 
+            reposan en la coordinación señalada. Adjunto la siguiente documentación:
+        </section>
+        <section class="w-100 mt-4 d-flex align-items-center justify-content-center">
+            <div class="d-flex flex-column justify-content-start">
+                <div class="d-flex align-items-center"><mat-icon>{{_certificado_de_la_secretaria_icon}}</mat-icon> <span> Certificado de la Secretaría, del año en el que está matriculado.</span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_oficio_de_la_coordinacion_de_gestion_social}}</mat-icon> <span> Oficio de la Coordinación de Gestión Social del Conocimiento dirigido a la empresa.</span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_oficio_de_aceptacion_de_la_empresa}}</mat-icon> <span> Oficio de aceptación de la empresa dirigida a la Coordinación de Vinculación con la Colectividad.</span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_ficha_de_datos_generales_del_estudiante}}</mat-icon> <span> Ficha de datos generales del estudiante. (FDGPC-1)</span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_ficha_de_actividades_diarias_realizadas}}</mat-icon> <span> Ficha de actividades diarias realizadas por el estudiante. (FADPC-2) </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_ficha_de_supervision_de_tutor_academico}}</mat-icon> <span> Ficha de supervisión de Tutor Académico. (SP-FSPC-3) </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_ficha_de_evaluacion_estudiantil}}</mat-icon> <span> Ficha de evaluación estudiantil. (FEEPC-4) </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_ficha_de_evaluacion_y_rendimiento_del_pasante}}</mat-icon> <span> Ficha de evaluación y rendimiento del pasante y/o practicante. (FERIPC-5) </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_certificacion_y_valoracion_de_fin_de_practica}}</mat-icon> <span> Certificación y valoración de fin de práctica, emitida por el responsable de la empresa. </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_memoria_tecnica_impresa_aprobada}}</mat-icon> <span>  Memoria Técnica impresa aprobada por el Tutor Académico. </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_informe_y_valoracion_del_tutor_academico}}</mat-icon> <span> Informe y valoración del Tutor Académico. </span></div>
+                <div class="d-flex align-items-center"><mat-icon>{{_Informe_y_valoracion_del_gestor_academico}}</mat-icon> <span> Informe y valoración del Gestor Académico (el presente documento).</span></div>
+            </div>
+        </section>
+        <section class="w-100 mt-2">
+            Sin otro particular, me suscribo
+        </section>
+        <section class="firmas d-flex flex-column">
+            <span> Atentamente </span>
+            <span class="d-flex flex-column  justify-content-center  align-items-center">
+                
+                <span class="fp">
+                    <strong>
+                        Ing. Rodolfo Parra López, Mgs.
+                    </strong>
+                </span>
+                <p>
+                <strong> 
+                        GESTOR DE GESTIÓN SOCIAL DEL CONOCIMIENTO <br>
+                        {{_carrera}}
+                </strong></p>
+                    
+            </span>
+        </section>
+
+    </div>
+
+</div>

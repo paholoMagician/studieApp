@@ -1,0 +1,350 @@
+<section class="header p-3">
+    <h2>Registro de Beneficiario para la Vinculación</h2>
+    <small></small>
+</section>
+
+<section class="table p-3 w-100">    
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+        <h3 class="p-2 d-flex  align-items-start">
+            <mat-icon >person_add</mat-icon>
+            <span style="margin-left: 10px;"> 
+                Registrar
+            </span>
+        </h3>
+        <hr>
+        <form [formGroup]="beneficiarioVinculacionForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center flex-column align-items-end w-100">
+            <section class="w-100 d-flex">
+                <div class="m-2 d-flex flex-column col-4">
+                    <label for="idProyecto">Asignar Proyecto</label>
+                    <select class="inpForms form-select rounded-pill w-100" 
+                            (change)="obtenerProcesosPorProyectos()"
+                            formControlName="idProyecto" #idProyecto id="idProyecto" aria-label="">
+                            <option *ngFor="let proyecto of listaProyectosObtenidas"        
+                                    [value]="proyecto.idProyecto">
+                                    <strong>Nombre</strong> {{proyecto.nombreProyecto | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column col-4">
+                    <label for="idProcesos">Asignar Proceso</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="idProcesos" #idProcesos id="idProcesos" aria-label="">
+                            <option *ngFor="let proceso of listaProcesos" [value]="proceso.idProcesos" >
+                                N. Proceso: {{proceso.numeroProceso | titlecase }} | Grupo: {{ proceso.nombreGrupo }}                                
+                            </option>
+                    </select>
+                </div>    
+            </section>
+            <div class="d-flex justify-content-between flex-wrap align-items-start  ">
+            <div class="m-2 d-flex flex-column">
+                <label for="cedula">Cédula Beneficiario</label>
+                <input class="inpForms form-control rounded-pill" formControlName="cedula"                       
+                       #cedula id="cedula" type="text" placeholder="">
+                       <!-- <small class="mt-2">{{messageText}}</small> -->
+            </div>
+            <div class="m-2 d-flex flex-column col-6">
+                <label for="nombres">Nombre y apellido</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombrePersonal" 
+                       #nombrePersonal id="nombrePersonal" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+              <label for="email">Correo Institucional</label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="email" 
+                     #email id="email" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="fechaNacim">Edad</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="edad" 
+                       #edad id="edad" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Sexo</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="sexo" #sexo id="sexo" aria-label="">
+                        <option *ngFor="let sexo of sexoLista" [value]="sexo.codigo" >
+                            {{sexo.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Cantón</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="canton" #canton id="canton" aria-label="">
+                        <option *ngFor="let provincia of provinciaLista" [value]="provincia.codigo" >
+                            {{provincia.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex w-50 flex-column">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="direccion" 
+                       #direccion id="direccion" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="celular">Telf. Celular</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="celular" 
+                       #direccion id="celular">
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="jornada">Jornada</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="jornada" #jornada id="jornada" aria-label="">
+                        <option *ngFor="let jornada of jornadaLista" [value]="jornada.codigo" >
+                            {{jornada.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-50">
+                <label for="celular">Registrado por</label>
+                <input type="text" [readOnly]="true" class="inpForms form-control rounded-pill"
+                       formControlName="usercod" 
+                       #usercod id="usercod">
+            </div>
+<!-- 
+            <div class="d-flex flex-column w-100">
+                <div class="d-flex justify-content-between">
+                    <div class="m-2 w-75 d-flex flex-column">
+                        <label for="tema1">Tema 1</label>
+                        <input type="text" class="inpForms form-control rounded-pill"
+                               formControlName="tema1" 
+                               #tema1 id="tema1">
+                    </div>
+                    <div class="m-2 d-flex flex-column">
+                        <label for="dia1">Día 1</label>
+                        <select class="inpForms form-select rounded-pill w-100"
+                                formControlName="dia1"
+                                #dia1
+                                id="dia1"
+                                aria-label="">
+                                <option *ngFor="let dia of diasLista" [value]="dia.codigo" >
+                                    {{dia.nombre | titlecase }}                                
+                                </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="m-2 w-75 d-flex flex-column">
+                        <label for="tema1">Tema 2</label>
+                        <input type="text" class="inpForms form-control rounded-pill"
+                               formControlName="tema2" 
+                               #tema2 id="tema2">
+                    </div>
+                    <div class="m-2 d-flex flex-column">
+                        <label for="dia1">Día 2</label>
+                        <select class="inpForms form-select rounded-pill w-100"
+                               formControlName="dia2"
+                               #dia2
+                               id="dia2"
+                               aria-label="">
+                               <option *ngFor="let dia of diasLista" [value]="dia.codigo" >
+                                   {{dia.nombre | titlecase }}                                
+                               </option>
+                       </select>
+                    </div>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="cedulaRepre">Cédula Representante</label>
+                    <input class="inpForms form-control rounded-pill" formControlName="cedulaRepre"                       
+                           #cedulaRepre id="cedulaRepre" type="text" placeholder="">
+                </div> 
+            </div>-->
+        </div>
+        </form>
+
+    </section>
+    <div class="d-flex justify-content-end">
+        <button mat-flat-button color="warn" (click)="limpiar()" *ngIf="_cancel">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button type="submit" (click)="onSubmit()"
+                mat-flat-button color="primary" style="margin-right: 15px;">
+            <mat-icon>{{_icon}}</mat-icon> {{textButton}} Beneficiario
+        </button>
+    </div>
+
+</section>
+<hr>
+<section class="header p-3">
+  <h2 class="d-flex align-items-center">
+    <mat-icon>settings_accessibility</mat-icon> Beneficiarios Creados</h2>
+</section>
+
+<section class="body p-3">
+<div class="mb-2 d-flex">
+    <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+           (keyup)="applyFilter($event)" #input 
+           placeholder="Busqueda de beneficiarios...">
+</div>
+<div class="table-responsive w-100">
+    <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100" >
+
+        <ng-container matColumnDef="edit">
+            
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <span>
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </span>
+              <span>
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </span>
+            </th>
+            
+            <td mat-cell *matCellDef="let row">
+              <span class="edit" (click)="catchData(row)" >
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </span>
+              <span class="delete">
+                <mat-icon (click)="eliminarProceso(row.cedBeneficiarios)">
+                  delete
+                </mat-icon>
+              </span>
+            </td>
+
+          </ng-container>
+
+        <ng-container matColumnDef="Nombre Proyecto">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombre Proyecto
+          </th>
+          <td mat-cell *matCellDef="let row" title="{{row.nombreBeneficiario}}">
+            {{row.nombreProyecto}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Nombre Benficiario">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombre Benficiario
+          </th>
+          <td mat-cell *matCellDef="let row" title="{{row.email}}">
+            {{row.nombreBeneficiario}}
+          </td>
+        </ng-container>
+<!-- 
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Email
+          </th>
+          <td mat-cell *matCellDef="let row" title="{{row.email}}">
+            {{row.email}}
+          </td>
+        </ng-container> -->
+
+        <!-- <ng-container matColumnDef="direccion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Direccion
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.direccion}}
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="ciudad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+            Ciudad
+          </th>
+          <td mat-cell *matCellDef="let row">
+              {{row.provincia}}
+          </td>
+        </ng-container> -->
+        
+        <ng-container matColumnDef="edad">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Edad
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.edad}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="C. Representante">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                C. Representante
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.cedRepresentante}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="F.Proceso">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Fec. Proceso
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.feccrea | date: 'short'   }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Jornada">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Jornada
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.jornada}}
+            </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="tema_1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Tema 1
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.tema_1}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Dia 1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Día 1
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.dia1}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tema_2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Tema 2
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.tema_2   }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Dia 2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Día 2
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.dia2   }}
+            </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            Datos no encontrados...
+          </td>
+        </tr>
+    </table>
+    <mat-paginator [length]="100"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   aria-label="Select page">
+</mat-paginator>    
+</div>
+</section>

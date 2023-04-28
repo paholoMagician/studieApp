@@ -1,0 +1,38 @@
+
+.header{
+    background-color: whitesmoke;
+    color: black !important; 
+    // margin: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+h3 {
+    margin: 0px !important;
+}
+
+.body {
+    background-color: whitesmoke;
+    color: black !important;
+    padding: 15px;
+    border-radius: 10px;
+    // margin: 5px;
+    margin-top: 0px;
+    height: 85%;
+}
+
+.footer {
+    background-color: whitesmoke;
+    color: black !important;
+    padding: 15px;
+    border-radius: 10px;
+    // margin: 5px;
+    margin-top: 0px;
+}
+
+.tableUsuarios {
+    height: 300px;
+    overflow-y: auto;
+}
+

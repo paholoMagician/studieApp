@@ -1,0 +1,269 @@
+<section class="header p-3">
+    <h2>Personal de Vinculación</h2>
+    <small></small>
+</section>
+
+
+<section class="table p-3 w-100">
+    
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+        <h3 class="p-2 d-flex  align-items-start">
+            <mat-icon >person_add</mat-icon>
+            <span style="margin-left: 10px;"> 
+                Registrar
+            </span>
+        </h3>
+        <hr>
+        <form [formGroup]="personalVinculacionForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center align-items-end w-100">
+            <div class="d-flex justify-content-between flex-wrap align-items-end  ">
+            <div class="m-2 d-flex flex-column">
+                <label for="cedula">Cédula</label>
+                <input class="inpForms form-control rounded-pill" formControlName="cedula"
+                       #cedula id="cedula" type="text" placeholder="">
+                       <!-- <small class="mt-2">{{messageText}}</small> -->
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="nombres">Nombre y apellido</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombrePersonal" 
+                       #nombrePersonal id="nombrePersonal" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+              <label for="email">Correo Institucional</label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="email" 
+                     #email id="email" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+              <label for="emailPers">Correo Personal</label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="emailPers" 
+                     #emailPers id="emailPers" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="fechaNacim">Edad</label>
+                <input type="number" class="inpForms form-control rounded-pill"
+                       formControlName="edad" 
+                       #edad id="edad" >
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="sexo">Sexo</label>
+                <select class="inpForms form-select rounded-pill w-100"                        
+                        formControlName="sexo" #sexo id="sexo" aria-label="">
+                        <option *ngFor="let sexo of sexoLista" [value]="sexo.codigo" >
+                            {{sexo.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Provincia</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        (change)="getCantones()"
+                        formControlName="idProvincia" #idProvincia id="idProvincia" aria-label="">
+                        <option *ngFor="let provincia of provinciaLista" [value]="provincia.codigo" >
+                            {{provincia.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            
+            <div class="m-2 d-flex flex-column w-25">
+              <label for="idCanton">Cantón</label>
+              <select class="inpForms form-select rounded-pill w-100"
+                      formControlName="idCanton" #idCanton id="idCanton" aria-label="">
+                      <option *ngFor="let canton of cantonLista" [value]="canton.codigo" >
+                          {{canton.nombre | titlecase }}                                
+                      </option>
+              </select>
+          </div>
+
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Facultad</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="facultad" #facultad id="facultad" aria-label="">
+                        <option *ngFor="let facultad of facultadLista" [value]="facultad.codigo" >
+                            {{facultad.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Carrera</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="carrera" #carrera id="carrera" aria-label="">
+                        <option *ngFor="let carrera of carrerasLista" [value]="carrera.codigo" >
+                            {{carrera.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex w-50 flex-column">
+                <label for="direccion">Dirección</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="direccion" 
+                       #direccion id="direccion" >
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="celular">Telf. Celular</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="celular" 
+                       #direccion id="celular">
+            </div>
+            <div class="m-2 d-flex flex-column">
+                <label for="telCasa">Telf. Casa</label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="telCasa" 
+                       #telCasa id="telCasa">
+            </div>
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="tipPers">Tipo de persona</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        (change)="validacionContraparte()"
+                        formControlName="tipo" #tipo id="tipo" aria-label="">
+                        <option *ngFor="let tPersona of tipoPersonaLista" [value]="tPersona.codigo" >
+                            {{tPersona.nombre | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column w-25 animate__animated animate__fadeInLeft" *ngIf="_showInstituciones" > 
+                <label for="tipPers">Instituciones</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idInstituto" #idInstituto id="idInstituto" aria-label="">
+                        <option *ngFor="let instituto of listadeInstitutosObtenidos" [value]="instituto.codInstiProy" >
+                            <strong>({{instituto.alias | titlecase }})</strong> - {{instituto.nombreInstituto | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+        </div>
+        </form>
+
+    </section>
+    <div class="d-flex justify-content-end align-items-center ">
+        <button mat-flat-button color="warn" (click)="limpiar()" *ngIf="_cancel">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        <button mat-raised-button type="submit" (click)="onSubmit()"
+                class="m-2 btn btn-success" style="margin-right: 25px !important;">
+            <mat-icon>add</mat-icon> {{textButton}} Personal
+        </button>
+    </div>
+
+</section>
+<section class="table mt-3 p-3 w-100">
+    <div class="d-flex" >
+        <h2 class="d-flex align-items-start">
+             <mat-icon>find_in_page</mat-icon>
+             <span> Personal de vinculación creados </span>
+        </h2>
+    </div>
+    <div class="mb-2 d-flex">
+        <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+               (keyup)="applyFilter($event)" #input 
+               placeholder="Busqueda del personal de vinculación...">
+    </div>
+    <div class="table-responsive w-100">
+        <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100">
+            <ng-container matColumnDef="edit">                
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  <span>
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+                  </span>
+                </th>
+                
+                <td mat-cell *matCellDef="let row">
+                    <div class="d-flex">
+                        <span class="delete" (click)="eliminarEntidad(row.codPersonal)">
+                            <mat-icon  >
+                              delete
+                            </mat-icon>
+                        </span>
+                        <span class="delete" (click)="catchData(row)">
+                            <mat-icon  >
+                              edit
+                            </mat-icon>
+                        </span>
+                    </div>
+                </td>
+
+              </ng-container>
+
+            <ng-container matColumnDef="Nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Nombre Personal
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.personaNombre}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cedula">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Cédula
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.cedula}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoPersonal">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Tipo Personal
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.tipoPersonal}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Correo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Correo Institucional
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.correoInstitucional}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="telefonoCelular">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Teléfono
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.telefonoCelular}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="provincia">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Provincia
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.provincia}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="direccion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Dirección
+              </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.direccion}}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+        
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                Datos no encontrados...
+              </td>
+            </tr>
+        </table>    
+        <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+        </mat-paginator>    
+    </div>
+</section>

@@ -1,0 +1,346 @@
+<section class="header p-3">
+    <h2>Creación de Proyectos</h2>
+    <small></small>
+</section>
+
+<section class="table p-3 w-100">
+
+    <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
+          <form [formGroup]="generarProyectoForm"  (ngSubmit)="onSubmit()"
+              class="d-flex justify-content-center align-items-end w-100">
+            <div class="d-flex justify-content-between flex-wrap align-items-end">
+
+            <div class="m-2 d-flex flex-column w-50">
+                <label for="nombreProyecto">Nombre del Proyecto 
+                  <strong class="text-danger">*</strong>
+                </label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="nombreProyecto"
+                       #nombreProyecto id="nombreProyecto" >
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+                <label for="feInicio">Fecha de Inicio
+                  <strong class="text-danger">*</strong>
+                </label>
+                <input type="date" 
+                       class="inpForms form-control rounded-pill"
+                       formControlName="fInicio"
+                       #fInicio id="fInicio" >
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+                <label for="fFin">Fecha de Final
+                  <strong class="text-danger">*</strong>
+                </label>
+                <input type="date" class="inpForms form-control rounded-pill"
+                formControlName="fFin"
+                #fFin id="fFin" >
+            </div>
+
+            <div class="m-2 d-flex flex-column w-25">
+              <label for="alias"># Alias <strong class="text-danger">*</strong>
+                <small class="text-secondary"> 50 Caracteres Max. </small>
+              </label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="alias"
+                     #alias maxlength="50" id="alias">
+            </div>
+
+            <!-- <div class="m-2 d-flex flex-column">
+                <label for="horas">Horas Vinculación </label>
+                <input type="number" 
+                class="inpForms form-control rounded-pill"
+                formControlName="horas"
+                #horas id="horas" >
+            </div> -->
+
+            <div class="m-2 d-flex flex-column w-50">
+                <label for="areaDesarrollo">Area de desarrollo</label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="areaDesarrollo"
+                       #areaDesarrollo id="areaDesarrollo" >
+            </div>
+
+            <div class="m-2 d-flex flex-column w-50 ">
+                <label for="proyectoProveniente">Convenios del Proyecto <strong class="text-danger">*</strong></label>
+                <div class="d-flex justify-content-start align-items-center">
+                    <input class="inpForms form-control rounded-pill"
+                            formControlName="proyectoProveniente" readonly
+                            #proyectoProveniente id="proyectoProveniente" >
+                    <button mat-mini-fab type="button"
+                            (click)="_convenios = !_convenios; obtenerConvenioMacro();"
+                            color="primary">
+                            <mat-icon>file_present</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="m-2 d-flex flex-column ">
+                <label for="directorProyecto">
+                    Director Proyecto <strong class="text-danger">*</strong>
+                </label>
+                <div class="d-flex align-items-center">
+                    <input class="inpForms form-control rounded-pill"
+                           formControlName="directorProyecto" readonly
+                           #directorProyecto id="directorProyecto">
+                           <button mat-mini-fab type="button"
+                                   (click)="openDialog('Director')"
+                                   color="primary">
+                                   <mat-icon>search</mat-icon>
+                           </button>
+                </div>
+            </div>
+
+            <!-- <div class="m-2 d-flex flex-column ">
+                <label for="idTutor">Tutor</label>
+                <div class="d-flex align-items-center">
+                <input class="inpForms form-control rounded-pill"   
+                       formControlName="idTutor" readonly
+                       #idTutor id="idTutor" >
+                    <button mat-mini-fab type="button"
+                            (click)="openDialog('Tutor')"
+                            color="primary">
+                            <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div> -->
+
+            <section *ngIf="_convenios" class="w-100 p-3 bg-warning" >
+                <div class="mb-2 d-flex">
+                    <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+                           (keyup)="applyFilter($event)" #input 
+                           placeholder="Busqueda de convenios....">
+                </div>
+                <div class="table-responsive w-100">
+                    <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100">
+                        <ng-container matColumnDef="edit">                
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                              <span>
+                                <mat-icon  >
+                                  visibility
+                                </mat-icon>
+                              </span>
+                            </th>
+                            
+                            <td mat-cell *matCellDef="let row">
+                              <div class="d-flex">
+                              <span class="delete ml-2" [matBadge]="row.cantidadConvEsp" matBadgeColor="warn" (click)="openDialogConvenios(row.codConvenioMarco, row.nombreConvenio, 1)">
+                                <mat-icon>
+                                  visibility
+                                </mat-icon>
+                              </span>
+                            </div>
+                            </td>
+            
+                          </ng-container>
+            
+                        <ng-container matColumnDef="Fecha Creación">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Fecha Creación
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                            {{row.codConvenioMarco | slice:17:27}}
+                          </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="Nombre Convenio">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Nombre Convenio
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                            {{row.nombreConvenio}}
+                          </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="F. Desde">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            F. Desde
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                            {{row.fechaIni | date: 'dd-MM-yyyy'}} 
+                          </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="F. Hasta">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            F. Hasta
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                            {{row.fachafin | date: 'dd-MM-yyyy'}} 
+                          </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="Nombre Convenio I.">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+                            Nombre Convenio I.
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                              {{row.nombreConvenioIntitu}}
+                          </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="Representante Convenio I.">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Representante Convenio I.
+                          </th>
+                          <td mat-cell *matCellDef="let row">
+                            <!--  | slice:0:20 -->
+                            {{row.representanteConvenioI}}
+                          </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="Representante Convenio U.">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Representante Convenio U.
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              {{row.representanteConvenioU}}
+                            </td>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="ID único Universidad">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                ID único Universidad
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              {{row.identificadorUnicoUniversidad}}
+                            </td>
+                        </ng-container>
+            
+                        <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+                    
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">
+                            Datos no encontrados...
+                          </td>
+                        </tr>
+                    </table>  
+                    <mat-paginator [length]="100"
+                                   [pageSize]="5"
+                                   [pageSizeOptions]="[5, 10, 25, 100]"
+                                   aria-label="Select page">
+                    </mat-paginator>    
+                </div>
+            </section>
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="nombres">Descripción del Proyecto</label>
+                <textarea class="inpForms form-control rounded-2"
+                       formControlName="descripcionProyecto" rows="5"
+                       #descripcionProyecto id="descripcionProyecto" >
+                </textarea>
+            </div>
+
+        </div>
+
+        </form>
+        <!-- <div class="d-flex justify-content-end align-items-center">
+            <button type="submit" class="m-2" mat-flat-button color="warn" (click)="onSubmit()" >
+                <mat-icon></mat-icon> 
+            </button>
+        </div> -->
+    </section>
+    <div class="d-flex justify-content-end align-items-center">
+      <button mat-flat-button color="warn" (click)="limpiar()" *ngIf="_cancel">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+          <mat-icon>{{icon_button}}</mat-icon> {{textButton}} Proyecto
+      </button>
+    </div>
+</section>
+<section class="header p-3 d-flex align-items-start">
+  <mat-icon>folder_open</mat-icon> <h2 class="m-0">Proyectos Creados</h2>
+</section>
+<hr>
+<section class="body p-3">
+  <div class="mb-2 d-flex">
+    <input class=" w-100 form-control rounded-pill"  fxFlex="auto" type="text"
+           (keyup)="applyFilterProyectos($event)" #input 
+           placeholder="Busqueda de proyectos....">
+  </div>
+  <div class="table-responsive w-100">
+    <table mat-table [dataSource]="dataSourceProyecto" class="mtTable shadow" matSort class="w-100">
+          <ng-container matColumnDef="edit">                
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <span>
+                <mat-icon  >
+                  edit
+                </mat-icon>
+              </span>
+            </th>
+            
+            <td mat-cell *matCellDef="let row">
+              <div class="d-flex">
+              <span class="delete ml-2" 
+                    (click)="catchData(row)"
+                    [matBadge]="row.cantidadConvEsp" matBadgeColor="warn">
+                <mat-icon>
+                  edit
+                </mat-icon>
+              </span>
+            </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="descripcionProyecto">                
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Descripción Proyecto
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.descripcionProyecto}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="alias">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Alias
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.alias}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="nombreConvenioEsp">                
+            <th title="Nombre del convenio específico añadido" mat-header-cell *matHeaderCellDef mat-sort-header>
+              Nombre Convenio Esp.
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.nombreConvenioEsp}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="nombreConvenioMarco">                
+            <th title="Nombre del convenio marco añadido" mat-header-cell *matHeaderCellDef mat-sort-header>
+              Nombre Convenio Marco.
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.nombreConvenioMarco}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="finicio">                
+            <th title="Fecha de Inicio del Proyecto" mat-header-cell *matHeaderCellDef mat-sort-header>
+              F. Inicio
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.finicio | date: 'dd-MMM-yyyy'}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="ffin">                
+            <th title="Fecha final del Proyecto" mat-header-cell *matHeaderCellDef mat-sort-header>
+              F. Final
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.ffin | date: 'dd-MMM-yyyy'}}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnHeadProyecto"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnHeadProyecto;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              Datos no encontrados...
+            </td>
+          </tr>
+        </table>
+      </div>
+</section>

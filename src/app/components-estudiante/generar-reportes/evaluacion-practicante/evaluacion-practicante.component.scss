@@ -1,0 +1,63 @@
+.body-reporte{
+    background-color: white;
+    border: dashed 1px gray;
+    width: 80%;
+}
+
+.title {
+    background-color: rgb(202, 202, 202);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12pt;
+    text-align: center;
+    border: solid 1px gray;
+}
+
+.titledata {
+    padding: 10px;
+    background-color: rgba(14, 95, 201, 0.5);
+    color: white;
+}
+
+.info {
+    border: solid 1px gray;
+    padding: 5px;
+}
+
+.fp {
+    margin-top: 150px;
+    border-top: solid 3px black;
+}
+
+.firmas {
+    margin-top: 25px;
+}
+
+.cal {
+    display: flex;
+    flex-wrap: wrap;
+    width: 35px;
+    height: 35px;
+    border: solid 1px gray;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.data-calificacion {
+    border: solid 2px gray;
+}
+
+.data, .calificacion, .cal {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.areaObserv {
+    border: solid 3px gray;
+}
+
+.body-reporte {
+    padding: 85px;
+}

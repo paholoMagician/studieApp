@@ -1,0 +1,45 @@
+
+
+<div class="cont container-fluid d-flex justify-content-around align-items-center m-0 p-4" id="loginForm" >
+    
+    <div class="darkBox animate__animated animate__fadeInLeft"   >
+        <figure>
+            <img id="img" src="../../../assets/logo.gif" width="300px" alt="">
+        </figure>
+    </div>
+
+    <div class="box animate__animated animate__fadeInRight">
+        <h1>Login</h1>
+        <hr>
+        <form [formGroup]="loginForm" class="mb-2" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="email" class="form-label">
+                    User email:
+                </label>
+                <input type="email" class="form-control" formControlName="email" #email id="email" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">              
+                <label for="password" class="form-label">
+                    Contraseña:
+                </label>
+                <input type="password" class="form-control" formControlName="password" #password id="password"  placeholder="******">
+            </div>
+            <button type="submit" class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center"  >
+                <mat-icon>key</mat-icon> Ingresar
+            </button>
+        </form>
+        <section class=" d-flex flex-column">
+                <small class="secbtn d-flex align-items-center">
+                    <mat-icon>warning</mat-icon>
+                    Olvide mi Contraseña
+                </small> 
+                <mat-divider></mat-divider>
+                <small class="secbtn d-flex align-items-center" (click)="registrar()">
+                    <mat-icon>manage_accounts</mat-icon>
+                    Regsitrarme
+                </small> 
+        </section>
+    </div>
+    
+</div>
+

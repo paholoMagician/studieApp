@@ -1,0 +1,40 @@
+:host ::ng-deep .mat-ripple {
+    color: black !important;
+}
+
+
+.body-reporte{
+    background-color: white;
+    border: dashed 1px gray;
+    width: 80%;
+}
+
+.title {
+    background-color: rgb(202, 202, 202);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12pt;
+    text-align: center;
+    border: solid 1px gray;
+}
+
+.titledata {
+    padding: 10px;
+    background-color: rgba(14, 95, 201, 0.5);
+    color: white;
+}
+
+.obs {
+    border: solid 3px gray;
+    height: 150px;
+    max-height: 200px;
+}
+
+.firmas {
+    margin-top: 150px;
+}
+
+
+.pf {
+    border-top: 3px solid black;
+}
