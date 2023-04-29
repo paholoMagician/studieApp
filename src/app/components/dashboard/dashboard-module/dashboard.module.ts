@@ -63,6 +63,7 @@ import { ModalEstudiantesAgruparComponent } from '../../agrupar-estudiantes/moda
 import { ModalProcesosComponent } from '../procesos/modal-procesos/modal-procesos.component';
 import { EstudiantesModule } from 'src/app/components-estudiante/module/estudiantes/estudiantes.module';
 import { InsitutosMaestroComponent } from '../insitutos-maestro/insitutos-maestro.component';
+import { ConfigurationsComponent } from '../../configurations/configurations.component';
 
 
 
@@ -83,7 +84,8 @@ import { InsitutosMaestroComponent } from '../insitutos-maestro/insitutos-maestr
     AgruparEstudiantesComponent,
     ModalEstudiantesAgruparComponent,
     ModalProcesosComponent,
-    InsitutosMaestroComponent
+    InsitutosMaestroComponent,
+    ConfigurationsComponent
   ],
   imports: [
     EstudiantesModule,
@@ -151,7 +153,8 @@ import { InsitutosMaestroComponent } from '../insitutos-maestro/insitutos-maestr
     AgruparEstudiantesComponent,
     ModalEstudiantesAgruparComponent,
     ModalProcesosComponent,
-    InsitutosMaestroComponent
+    InsitutosMaestroComponent,
+    ConfigurationsComponent
   ]
 })
 

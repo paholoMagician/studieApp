@@ -259,6 +259,10 @@ export class InsitutosMaestroComponent implements OnInit {
         cancelButtonText: 'cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
+
+          console.log('codigo de la institucion eliminada');
+          console.log(codInstiProy);
+
           this.institutos.eliminarInstitutos(codInstiProy).subscribe({
             next: () => {
               Swal.fire(

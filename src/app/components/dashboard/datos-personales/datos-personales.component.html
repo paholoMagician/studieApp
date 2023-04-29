@@ -4,9 +4,8 @@
 </section>
 
 <section class="table p-3 w-100">
-    <!-- <section class="headNavSide mb-2 p-3">
 
-    </section> -->
+
     
     <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
         <h3 class="p-2 d-flex  align-items-start">
@@ -43,6 +42,7 @@
                        formControlName="nombrePersonal" 
                        #nombrePersonal id="nombrePersonal" >
             </div>
+
             <div class="m-2 d-flex flex-column">
               <label for="email">Correo Institucional</label>
               <input class="inpForms form-control rounded-pill"
@@ -89,6 +89,7 @@
                         </option>
                 </select>
             </div>
+
             <div class="m-2 d-flex w-50 flex-column">
                 <label for="direccion">Dirección</label>
                 <input type="text" class="inpForms form-control rounded-pill"
@@ -237,6 +238,15 @@
                             formControlName="capacidades" #capacidades id="capacidades" aria-label="">
                             <option *ngFor="let capacidad of capacidadesLista" [value]="capacidad.codigo" >
                                 {{capacidad.nombre | titlecase }}                                
+                            </option>
+                    </select>
+                </div>
+                <div class="m-2 d-flex flex-column w-25">
+                    <label for="codCarrera">Curso</label>
+                    <select class="inpForms form-select rounded-pill w-100"
+                            formControlName="curso" #curso id="curso" aria-label="">
+                            <option *ngFor="let curso of cursoLista" [value]="curso.codigo" >
+                                {{curso.nombre | titlecase }}                                
                             </option>
                     </select>
                 </div>

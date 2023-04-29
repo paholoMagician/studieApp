@@ -27,6 +27,11 @@ export class NavSideComponent implements OnInit {
   public _IMGE:        string     = '';
   public codUser:      any        = '';
   _tipo_persona:       string     = '';
+  moduleName: boolean = true;
+  _fontSize: string = '15pt';
+  _width: string = '290px';
+  _width_navside: string = '300px';
+  _user: boolean = true;
 
   // Área de trabajo, accede al menú...
   moduleLocation: string = '';
@@ -50,6 +55,30 @@ export class NavSideComponent implements OnInit {
         console.warn(this._IMGE);
       }
     })
+  }
+
+  data: boolean = true;
+  constrolNavside() {
+
+    switch( this.data ) {
+      case true:
+        this.data = false;
+        this.moduleName = false;
+        this._fontSize = '20pt';
+        this._width = '40px';
+        this._width_navside = '100px';
+        this._user = false; 
+        break;
+      case false:
+        this.data = true;
+        this.moduleName = true;
+        this._fontSize = '14pt';
+        this._width = '';
+        this._width_navside = '300px';
+        this._user = true; 
+        break;
+    }
+
   }
 
   getModulos() {

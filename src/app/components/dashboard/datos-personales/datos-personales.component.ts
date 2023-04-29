@@ -37,6 +37,7 @@ export class DatosPersonalesComponent implements OnInit {
   public carrerasLista:    any = [];
   public facultadLista:    any = [];
   public capacidadesLista: any = [];
+  public cursoLista:       any = [];
   public _IMGE:        string     = '';
   public _msj: string = 'Crear';
   public _icon: string = 'add';
@@ -86,6 +87,7 @@ export class DatosPersonalesComponent implements OnInit {
     // CodCia:                
     codSexo:                new FormControl( '' )   ,
     capacidades:            new FormControl( '' ),            
+    curso:                  new FormControl( '' ),            
   })
 
   ngOnInit(): void {
@@ -103,6 +105,9 @@ export class DatosPersonalesComponent implements OnInit {
         this.getDataMaster('UG00');
         //capacidades
         this.getDataMaster('CPAD');
+        //curso
+        this.getDataMaster('CCU');
+        
 
         let xtipo: any = sessionStorage.getItem('tipo');
         if( xtipo == 'ADMIN' || xtipo == 'administrador' || xtipo == 'docente' ) {
@@ -148,7 +153,8 @@ export class DatosPersonalesComponent implements OnInit {
       telefonoCasa:             this.alumnoForm.controls['telefonoCasa'].value,           
       CodCia: this.codCia,
       codSexo:                  this.alumnoForm.controls['codSexo'].value,
-      capacidades:              this.alumnoForm.controls['capacidades'].value
+      capacidades:              this.alumnoForm.controls['capacidades'].value,
+      codCurso:                 this.alumnoForm.controls['curso'].value
     }
 
     console.warn(this.estudianteLista);
@@ -196,33 +202,27 @@ export class DatosPersonalesComponent implements OnInit {
         switch(cod) {
           case 'R02':
             this.estadoCivilLista = Data;
-            //console.log(this.estadoCivilLista)
             break;
           case 'PRV00':
             this.provinciaLista = Data;
-            //console.log(this.provinciaLista)
             break;
           case 'C04':
             this.sexoLista = Data;
-            //console.log(this.sexoLista)
             break;
           case 'TP01':
             this.tipoPersonaLista = Data;
-            //console.log('this.tipoPersonaLista')
-            //console.log(this.tipoPersonaLista)
             break;
           case 'UG01':
             this.carrerasLista = Data;
-            //console.log('this.carrerasLista')
-            //console.log(this.carrerasLista)
             break;
           case 'UG00':
             this.facultadLista = Data;
-            //console.log('this.facultadLista')
-            //console.log(this.facultadLista)
             break;
           case 'CPAD':
             this.capacidadesLista = Data;
+            break;
+          case 'CCU':
+            this.cursoLista = Data;
             break;
         }
       }
@@ -320,9 +320,9 @@ export class DatosPersonalesComponent implements OnInit {
         this.perfilForm.controls['cedula'].setValue(this.perfilLista[0].cedula);
       } else {
 
-        console.warn('PARA PINTAR LA INFORMACION DEL ALUMNO');
-        console.warn('ESTE ES EL CODIGO DE CAPACIDADES')
-        console.warn(this.perfilLista)
+        // console.warn('PARA PINTAR LA INFORMACION DEL ALUMNO');
+        // console.warn('ESTE ES EL CODIGO DE CAPACIDADES')
+        // console.warn(this.perfilLista)
         this.alumnoForm.controls['alumnoNombre'].setValue(this.perfilLista[0].alumnoNombre);
         this.alumnoForm.controls['cedula'].setValue(this.perfilLista[0].cedula);                
         this.alumnoForm.controls['edad'].setValue(this.perfilLista[0].edad);                   
@@ -339,6 +339,7 @@ export class DatosPersonalesComponent implements OnInit {
         this.alumnoForm.controls['telefonoCelular'].setValue(this.perfilLista[0].telefonoCelular);
         this.alumnoForm.controls['telefonoCasa'].setValue(this.perfilLista[0].telefonoCasa); 
         this.alumnoForm.controls['capacidades'].setValue(this.perfilLista[0].codCapacidades); 
+        this.alumnoForm.controls['curso'].setValue((this.perfilLista[0].codCurso).trim()); 
       }
 
       this.obtenerImagen( x );
