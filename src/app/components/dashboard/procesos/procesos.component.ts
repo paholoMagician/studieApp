@@ -358,11 +358,11 @@ export class ProcesosComponent implements OnInit {
 
 
   public personalVinculacion: any = [];
+  public contraparteLista: any = [];
   obtenerPersonal() {
     this.proyecto.obtenerPersonalViculacio(this.codCia).subscribe({
       next: (personal) => {
         this.personalVinculacion = personal;
-        console.log(this.personalVinculacion);
       },
       error: (e) => {
         console.error(e);
@@ -374,8 +374,14 @@ export class ProcesosComponent implements OnInit {
             this.decanoLista.push(element);
             console.log(this.decanoLista);
           }
+          else if ( element.tipo == '004' ) {
+            this.contraparteLista.push(element);
+            console.log(this.contraparteLista); 
+          }
         })
-        this.dataSource = new MatTableDataSource(this.personalVinculacion);
+
+        this.dataSource = new MatTableDataSource(this.personalVinculacion);        
+
       }
     })
   }

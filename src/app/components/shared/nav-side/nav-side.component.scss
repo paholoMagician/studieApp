@@ -35,13 +35,36 @@
 .btnsplit {
     background-color: blueviolet;
     color: white;
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     border-radius: 100%;
     position: absolute;
     top: 0;
     left: 270px;
     transition: ease all 0.5s;
+    animation: ease-in-out 1s 1;
+}
+
+@keyframes btnMoveLeft {
+
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-200px);
+    }
+
+}
+
+@keyframes btnMoveRight {
+
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+
 }
 
 .btnsplit:hover {

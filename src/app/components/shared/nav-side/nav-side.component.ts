@@ -32,6 +32,7 @@ export class NavSideComponent implements OnInit {
   _width: string = '290px';
   _width_navside: string = '300px';
   _user: boolean = true;
+  _icon: string = 'chevron_left';
 
   // Área de trabajo, accede al menú...
   moduleLocation: string = '';
@@ -47,19 +48,21 @@ export class NavSideComponent implements OnInit {
   
   public imagenLista: any = [];
   obtenerImagen(codUser: string) {
-    this.Shared.obtenerImagen(codUser, 'PERFIL').subscribe( {
+    this.Shared.obtenerImagen(codUser, 'PERFIL').subscribe(
+    {
       next: (imagen) => {
         this.imagenLista = imagen;
         console.warn(this.imagenLista);
         this._IMGE = this.imagenLista[0].imagenContent;   
         console.warn(this._IMGE);
       }
-    })
+    }
+    )
   }
 
   data: boolean = true;
   constrolNavside() {
-
+    let x = document.getElementById('btnsplit') as HTMLDivElement;
     switch( this.data ) {
       case true:
         this.data = false;
@@ -68,6 +71,9 @@ export class NavSideComponent implements OnInit {
         this._width = '40px';
         this._width_navside = '100px';
         this._user = false; 
+        this._icon = 'chevron_right';
+        x.style.animationName = 'btnMoveLeft';
+        x.style.transform = 'translate(-200px)'
         break;
       case false:
         this.data = true;
@@ -76,6 +82,9 @@ export class NavSideComponent implements OnInit {
         this._width = '';
         this._width_navside = '300px';
         this._user = true; 
+        this._icon = 'chevron_left';
+        x.style.animationName = 'btnMoveRight';
+        x.style.transform = 'translate(0px)'
         break;
     }
 

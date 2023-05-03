@@ -90,11 +90,10 @@
                 <select class="inpForms form-select rounded-pill w-100"
                         formControlName="idCoordinadorGeneral"
                         #idCoordinadorGeneral 
-                        id="idCoordinadorGeneral"
-                        aria-label="">
-                        <option *ngFor="let tutor of personalVinculacion" [value]="tutor.codPersonal" >
-                            <strong> {{tutor.personaNombre | titlecase }} </strong> |
-                            <span class="text-primary"> {{ tutor.nombreTippo | uppercase }} </span>
+                        id="idCoordinadorGeneral">
+                        <option *ngFor="let contraparte of contraparteLista" [value]="contraparte.codPersonal" >
+                            <strong> {{contraparte.personaNombre | titlecase }} </strong> |
+                            <span class="text-primary"> {{ contraparte.nombreTippo | uppercase }} </span>
                         </option>
                 </select>
             </div>

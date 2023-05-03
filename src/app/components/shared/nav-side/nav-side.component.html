@@ -7,25 +7,26 @@
             <div class="imgTest rounded-2" [ngStyle]="{'background-image': 'url('+_IMGE+')'}" ></div>
         </div>
         <div class=" p-2 ">
-            <div class="btnsplit d-flex align-items-center  justify-content-center m-2 " (click)="constrolNavside()"  >
-                <mat-icon>fiber_manual_record</mat-icon>
+            <div class="btnsplit d-flex align-items-center justify-content-center m-2 "
+                 (click)="constrolNavside()" id="btnsplit" >
+                <mat-icon>{{_icon}}</mat-icon>
             </div>
             <div class="text-light">
                 <span *ngIf="_user" > 
                     Bienvenid@ <span class="text-warning" > {{_username}} </span>
                 </span>
             </div>
-            <!-- <small class="link d-flex align-items-center mt-2" >
-                <mat-icon>manage_accounts</mat-icon> Editar mi perfil
-            </small> -->
-            <div (click)="closeSession()"  *ngIf="_user" class="cerrar btn btn-outline-warning d-flex mt-2 align-items-center">
+            <div (click)="closeSession()"  *ngIf="_user"
+                 class="cerrar btn btn-outline-warning d-flex mt-2 align-items-center">
                 <mat-icon>close</mat-icon> Cerrar mi sesión
             </div>
         </div>
     </section>
     <mat-divider></mat-divider>
     <div class="bodynavSide mt-2 p-1">
-        <div *ngFor="let modulos of modulosLista" class="nav w-100 mt-1 p-2" [ngStyle]="{'width': _width}" (click)="botonClick(modulos.moduleName);">
+        <div *ngFor="let modulos of modulosLista" class="nav w-100 mt-1 p-2" [matTooltip]="modulos.moduleName"
+             matTooltipPosition="after"
+             [ngStyle]="{'width': _width}" (click)="botonClick(modulos.moduleName);"  >
             <span class=" module d-flex justify-content-start align-items-center"    >
                 <mat-icon [ngStyle]="{'font-size': _fontSize}" >
                     {{modulos.icon}}
