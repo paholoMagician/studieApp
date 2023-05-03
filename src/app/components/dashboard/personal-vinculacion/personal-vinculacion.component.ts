@@ -13,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { LoginService } from '../../login/services/login.service';
 import { InstitutosService } from '../insitutos-maestro/services/institutos.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -39,8 +40,26 @@ export class PersonalVinculacionComponent implements OnInit {
 
   public columnHead: any = ['edit', 'Nombre', 'cedula', 'tipoPersonal', 'Correo', 'telefonoCelular', 'provincia', 'direccion']
   public dataSource!: MatTableDataSource<any>;
-  public codCia = environment.codCia;
-  constructor( private loginService: LoginService, public institutos: InstitutosService, public token: TokenService,public registrarAlumno: RegistroAlumnoService, public personal: PersonalVinculacionService, public DataMaster: SharedServicesService ) { }
+  
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
+  constructor( private loginService: LoginService, public general: GeneralService, public institutos: InstitutosService, public token: TokenService,public registrarAlumno: RegistroAlumnoService, public personal: PersonalVinculacionService, public DataMaster: SharedServicesService ) { }
   public sexoLista:        any = [];
   public provinciaLista:   any = [];
   public estadoCivilLista: any = [];

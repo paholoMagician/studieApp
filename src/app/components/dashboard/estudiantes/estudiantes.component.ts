@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.prod';
 import { MatPaginator } from '@angular/material/paginator';
 import { LoginService } from '../../login/services/login.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -35,9 +36,27 @@ export class EstudiantesComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  public codCia = environment.codCia;
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  
   constructor(  public token: TokenService, 
                 public loginService: LoginService,
+                public general: GeneralService,
                 public registrarAlumno: RegistroAlumnoService,
                 public shared: SharedServicesService,
                 private alumnos: EstudiantesService ) { }

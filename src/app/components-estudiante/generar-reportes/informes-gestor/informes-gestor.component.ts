@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { GenerarActividadService } from '../../agregar-actividad/services/generar-actividad.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-informes-gestor',
@@ -38,9 +39,25 @@ export class InformesGestorComponent implements OnInit {
   public _carrera:    string = '';
   public _supervisor: string = '';
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
 
-  constructor( private actividades:  GenerarActividadService ) { }
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
+  constructor( private actividades:  GenerarActividadService, public general: GeneralService ) { }
 
   ngOnInit(): void {
     this.obtenerEstudiante()

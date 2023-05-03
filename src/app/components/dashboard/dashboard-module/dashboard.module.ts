@@ -64,6 +64,7 @@ import { ModalProcesosComponent } from '../procesos/modal-procesos/modal-proceso
 import { EstudiantesModule } from 'src/app/components-estudiante/module/estudiantes/estudiantes.module';
 import { InsitutosMaestroComponent } from '../insitutos-maestro/insitutos-maestro.component';
 import { ConfigurationsComponent } from '../../configurations/configurations.component';
+import { MiempresaComponent } from '../../miempresa/miempresa.component';
 
 
 
@@ -85,7 +86,8 @@ import { ConfigurationsComponent } from '../../configurations/configurations.com
     ModalEstudiantesAgruparComponent,
     ModalProcesosComponent,
     InsitutosMaestroComponent,
-    ConfigurationsComponent
+    ConfigurationsComponent,
+    MiempresaComponent
   ],
   imports: [
     EstudiantesModule,
@@ -154,7 +156,8 @@ import { ConfigurationsComponent } from '../../configurations/configurations.com
     ModalEstudiantesAgruparComponent,
     ModalProcesosComponent,
     InsitutosMaestroComponent,
-    ConfigurationsComponent
+    ConfigurationsComponent,
+    MiempresaComponent
   ]
 })
 

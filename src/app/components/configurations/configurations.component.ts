@@ -6,6 +6,7 @@ import { ProcesosService } from '../dashboard/procesos/procesos-services/proceso
 import { EstudiantesService } from '../dashboard/estudiantes/services/estudiantes.service';
 import { TokenService } from '../shared/services-shared/token.service';
 import { ConfigurationServicesService } from './services/configuration-services.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -31,7 +32,23 @@ export class ConfigurationsComponent implements OnInit {
   _opacity: number = 0;
 
   public _explain: string = '';
-  public codCia = environment.codCia;
+  public codCia: string = environment.codCia; 
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
   // public _create_show: boolean = true;
   public configurationForm = new FormGroup({
     inscripAutom:  new FormControl( false, [ Validators.required ]),
@@ -42,7 +59,7 @@ export class ConfigurationsComponent implements OnInit {
     fechaHasta: new FormControl( new Date() )
   });
 
-  constructor(public conf: ConfigurationServicesService, public proceso: ProcesosService, public token: TokenService,  private alumnos: EstudiantesService,) { }
+  constructor(public conf: ConfigurationServicesService, public general: GeneralService, public proceso: ProcesosService, public token: TokenService,  private alumnos: EstudiantesService,) { }
 
   ngOnInit(): void {
     this.validationProcess();

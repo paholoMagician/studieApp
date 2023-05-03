@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EstudiantesService } from '../../estudiantes/services/estudiantes.service';
 import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2'
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -24,12 +25,30 @@ const Toast = Swal.mixin({
   styleUrls: ['./modal-procesos.component.scss']
 })
 export class ModalProcesosComponent implements OnInit {
-  public codCia = environment.codCia;
+  
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
   columnHeadGrupo: any = [ 'seleccionar', 'Nombres', 'cantidadEstudiantes' ];
   // public dataSourceAdd!: MatTableDataSource<any>;
   public dataSource!: MatTableDataSource<any>;
 
-  constructor( private estudiantes: EstudiantesService, public dialogRef: MatDialogRef<ProcesosComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor( private estudiantes: EstudiantesService, public general: GeneralService, public dialogRef: MatDialogRef<ProcesosComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.obtenerEstudiantes()

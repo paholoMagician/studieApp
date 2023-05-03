@@ -6,6 +6,7 @@ import { ProyectosService } from '../services/proyectos.service';
 import { environment } from 'src/environments/environment.prod';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProcesosService } from '../../procesos/procesos-services/procesos.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-proyecto-personal',
@@ -14,7 +15,24 @@ import { ProcesosService } from '../../procesos/procesos-services/procesos.servi
 })
 export class ProyectoPersonalComponent implements OnInit {
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  
   public dataSource!: MatTableDataSource<any>;
   public personalVinculacion: any = [];
   public columnHead: any = [ 'action', 'nombrePersonal', 'Nombre Tipo', 'cedula' ];
@@ -22,6 +40,7 @@ export class ProyectoPersonalComponent implements OnInit {
   constructor( private procesos: ProcesosService,
                private proyecto: ProyectosService,
                private DataMaster: SharedServicesService,
+               public general: GeneralService,
                private dialogRef: MatDialogRef<CrearConveniosComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any
             ) { }

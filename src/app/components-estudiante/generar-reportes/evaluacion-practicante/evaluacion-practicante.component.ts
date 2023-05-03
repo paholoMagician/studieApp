@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import jspdf from 'jspdf';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-evaluacion-practicante',
@@ -231,9 +232,25 @@ export class EvaluacionPracticanteComponent implements OnInit {
     observaciones_generales:   new FormControl( '', [ Validators.required ])
   });
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
 
-  constructor( private actividades:  GenerarActividadService ) { }
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
+  constructor( private actividades:  GenerarActividadService, public general: GeneralService ) { }
 
   ngOnInit(): void {
     this.obtenerEstudiante()

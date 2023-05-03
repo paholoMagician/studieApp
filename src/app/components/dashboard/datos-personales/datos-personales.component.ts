@@ -7,6 +7,7 @@ import { SharedServicesService } from '../../shared/services-shared/shared-servi
 
 import Swal from 'sweetalert2'
 import { EstudiantesService } from '../estudiantes/services/estudiantes.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -28,8 +29,28 @@ const Toast = Swal.mixin({
 })
 export class DatosPersonalesComponent implements OnInit {
   
-  public codCia = environment.codCia;
-  constructor( public personal: PersonalVinculacionService, public estudiante: EstudiantesService,  public DataMaster: SharedServicesService ) { }
+  public codCia: string = environment.codCia;
+
+  // getCia() {
+  //   this.general.getCia().subscribe({
+  //     next: (element:any) => {
+  //       console.warn(element);
+  //       this.codCia = element[0].codcia;
+  //     },
+  //     error: (e:any) => {
+  //       console.error(e)
+  //     },
+  //     complete: () => {
+  //       console.log(this.codCia);
+  //       return this.codCia;
+  //     }
+  //   })
+  // }
+
+  constructor( public personal: PersonalVinculacionService, 
+               public general: GeneralService, public estudiante: EstudiantesService,  
+               public DataMaster: SharedServicesService ) { }
+
   public sexoLista:        any = [];
   public provinciaLista:   any = [];
   public estadoCivilLista: any = [];
@@ -47,6 +68,9 @@ export class DatosPersonalesComponent implements OnInit {
 
   public tipo: string = '';
   public _entidad: string = 'Personal'
+
+  public viewer_inputs: boolean = true;
+  public readonly_input: boolean = false;
 
   public perfilForm = new FormGroup({
     nombrePersonal:  new FormControl( '', [ Validators.required ]),
@@ -91,6 +115,9 @@ export class DatosPersonalesComponent implements OnInit {
   })
 
   ngOnInit(): void {
+
+        // this.getCia();
+
         // this.getDataMaster('R13');
         this.getDataMaster('PRV00');
         // Estado Civil
@@ -107,21 +134,30 @@ export class DatosPersonalesComponent implements OnInit {
         this.getDataMaster('CPAD');
         //curso
         this.getDataMaster('CCU');
-        
+
+        if (this.codCia == null || this.codCia == undefined || this.codCia == '') this.codCia = 'VOID'
+        console.warn(this.codCia);
 
         let xtipo: any = sessionStorage.getItem('tipo');
-        if( xtipo == 'ADMIN' || xtipo == 'administrador' || xtipo == 'docente' ) {
+        if( xtipo == 'docente' || xtipo == 'ADMIN' || xtipo == 'ADMINISTRADOR' ) {
           this._entidad_alumno   = false;
           this._entidad_personal = true;
           this.tipo = 'personal';
           this._entidad = 'Personal';
-          console.log(this.tipo)
-        } else {
+        } 
+        // else if (xtipo == 'ADMIN' || xtipo == 'ADMINISTRADOR') {
+        //   this._entidad_alumno   = false;
+        //   this._entidad_personal = true;
+        //   this.tipo = 'ADMINISTRADOR';
+        //   this._entidad = 'Administrador';
+        //   this.viewer_inputs = false;
+        //   this.readonly_input = true;
+        // }
+        else {
           this._entidad_alumno   = true;
           this._entidad_personal = false;
           this.tipo = 'alumno';
           this._entidad = 'Alumno';
-          console.log(this.tipo)
         }
 
         this.obtenerPerfilUsuario(this.tipo);
@@ -292,7 +328,14 @@ export class DatosPersonalesComponent implements OnInit {
   }
 
   obtenerPerfilUsuario(tipo: string) {
+
     let x: any = sessionStorage.getItem('UserCod');
+    console.log(tipo)
+    console.log(x)
+    
+
+    console.log(this.codCia)
+
     this.personal.obtenerPersonal(tipo, x, this.codCia).subscribe( perfil => {
       this.perfilLista = perfil;
       console.warn(this.perfilLista);
@@ -318,7 +361,29 @@ export class DatosPersonalesComponent implements OnInit {
         this.perfilForm.controls['sexo'].setValue(this.perfilLista[0].codSexo);
         this.perfilForm.controls['tipoPers'].setValue(this.perfilLista[0].tipo);
         this.perfilForm.controls['cedula'].setValue(this.perfilLista[0].cedula);
-      } else {
+      } 
+      
+      else if ( tipo == 'ADMINISTRADOR' ) {
+        this.perfilForm.controls['nombrePersonal'].setValue(this.perfilLista[0].personaNombre);    
+        this.perfilForm.controls['edad'].setValue(this.perfilLista[0].edad);
+        this.perfilForm.controls['email'].setValue(this.perfilLista[0].correoInstitucional);
+        this.perfilForm.controls['emailPers'].setValue(this.perfilLista[0].correoPersonal);
+        this.perfilForm.controls['facultad'].setValue(this.perfilLista[0].codFacultad);
+        this.perfilForm.controls['carrera'].setValue(this.perfilLista[0].codCarrera);
+        
+        this.alumnoForm.controls['idProvincia'].setValue(this.perfilLista[0].idProvincia);
+        this.getCantones();                       
+        this.alumnoForm.controls['idCanton'].setValue(this.perfilLista[0].idCanton);                    
+ 
+        this.perfilForm.controls['direccion'].setValue(this.perfilLista[0].direccion);
+        this.perfilForm.controls['celular'].setValue(this.perfilLista[0].telefonoCelular);
+        this.perfilForm.controls['telCasa'].setValue(this.perfilLista[0].telefonoCasa);
+        this.perfilForm.controls['sexo'].setValue(this.perfilLista[0].codSexo);
+        this.perfilForm.controls['tipoPers'].setValue(this.perfilLista[0].tipo);
+        this.perfilForm.controls['cedula'].setValue(this.perfilLista[0].cedula);
+      }
+
+      else {
 
         // console.warn('PARA PINTAR LA INFORMACION DEL ALUMNO');
         // console.warn('ESTE ES EL CODIGO DE CAPACIDADES')
@@ -351,7 +416,7 @@ export class DatosPersonalesComponent implements OnInit {
   public personalVinculacionLista: any = [];
   actualizarPerfil() {
 
-    if( this.tipo == 'personal' )
+    if( this.tipo == 'personal' || this.tipo == 'ADMINISTRADOR' )
       {
         if( this.perfilForm.controls['nombrePersonal'].value == '' ||
             this.perfilForm.controls['nombrePersonal'].value == undefined ||

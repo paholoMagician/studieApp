@@ -20,7 +20,6 @@
             <label for="fileUp" id="imageUp" class="d-flex justify-content-center w-100">
                 <div class="imgTest" [ngStyle]="{'background-image': 'url('+_IMGE+')'}" >
                 </div>
-
             </label>
             <input type="file" id="fileUp" (change)="encodeImageFileAsURL()">
         </div>
@@ -71,7 +70,7 @@
                 </select>
             </div>
 
-            <div class="m-2 d-flex flex-column w-25">
+            <div class="m-2 d-flex flex-column w-25" *ngIf="viewer_inputs" >
                 <label for="tipPers">Facultad</label>
                 <select class="inpForms form-select rounded-pill w-100"
                         formControlName="facultad" #facultad id="facultad" aria-label="">
@@ -80,7 +79,7 @@
                         </option>
                 </select>
             </div>
-            <div class="m-2 d-flex flex-column w-25">
+            <div class="m-2 d-flex flex-column w-25" *ngIf="viewer_inputs" >
                 <label for="tipPers">Carrera</label>
                 <select class="inpForms form-select rounded-pill w-100"
                         formControlName="carrera" #carrera id="carrera" aria-label="">
@@ -108,7 +107,7 @@
                        formControlName="telCasa" 
                        #telCasa id="telCasa">
             </div>
-            <div class="m-2 d-flex flex-column w-25">
+            <div class="m-2 d-flex flex-column w-25" *ngIf="viewer_inputs" >
                 <label for="tipPers">Tipo de persona</label>
                 <select class="inpForms form-select rounded-pill w-100"
                         formControlName="tipoPers" #tipoPers id="tipoPers" aria-label="">

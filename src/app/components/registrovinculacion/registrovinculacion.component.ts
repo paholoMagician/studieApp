@@ -7,6 +7,7 @@ import { SharedServicesService } from '../shared/services-shared/shared-services
 import { TokenService } from '../shared/services-shared/token.service';
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.prod';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -35,8 +36,27 @@ export class RegistrovinculacionComponent implements OnInit {
   public disabledbutton:   boolean = true;
   public messageText:      string = '';
   public esValida:         boolean   = false;
-  public codCia = environment.codCia;
-  constructor( public token: TokenService, public shared: SharedServicesService ,
+  
+  
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
+  constructor( public token: TokenService, public shared: SharedServicesService , public general: GeneralService,
                public router: Router, public DataMaster: RegistroAlumnoService ) { }
 
   ngOnInit(): void {

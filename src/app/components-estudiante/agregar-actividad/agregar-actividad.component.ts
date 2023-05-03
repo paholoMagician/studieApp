@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2'
 import { GenerarActividadService } from './services/generar-actividad.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -53,11 +54,29 @@ export class AgregarActividadComponent implements OnInit {
     horas:                new FormControl( '', [ Validators.required ])
   });
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  
   public dataSource!: MatTableDataSource<any>;
 
   constructor(public  token:          TokenService,
               private actividades:  GenerarActividadService,
+              public general: GeneralService,
               public  proceso:        ProcesosService,
               private beneficiarios:  BeneficiariosService,
               public proyecto:        ProyectosService,

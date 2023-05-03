@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.prod';
 import { GenerarActividadService } from '../agregar-actividad/services/generar-actividad.service';
 import * as moment from 'moment';
 import { elementAt } from 'rxjs';
+import { GeneralService } from 'src/app/services/general.service';
 
 function convertirFecha(fecha: string): string {
   return moment(fecha, 'YYYY-MM-DD').format('DD-MM-YYYY');
@@ -19,10 +20,28 @@ export class GenerarReportesComponent implements OnInit {
   public _facultad:   string = '';
   public _carrera:    string = '';
   public _supervisor: string = '';
-  public codCia = environment.codCia; 
+  
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
   public registrosActividadLista: any = [];
 
-  constructor(private actividades:  GenerarActividadService) { }
+  constructor(private actividades:  GenerarActividadService, public general: GeneralService,) { }
 
   ngOnInit(): void {
     this.obtenerEstudiante();

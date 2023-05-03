@@ -8,6 +8,7 @@ import { SharedServicesService } from 'src/app/components/shared/services-shared
 import { CrearConveniosService } from '../services/crear-convenios.service';
 import Swal from 'sweetalert2'
 import { MatTableDataSource } from '@angular/material/table';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -42,10 +43,28 @@ export class ModalConvenioEspecificosComponent implements OnInit {
     convenioFisico:                   new FormControl( '', [ Validators.required ])
   });
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
   constructor(public dialog: MatDialog, 
               public token: TokenService, 
               public convenioMacro: CrearConveniosService,
+              public general: GeneralService,
               public DataMaster: SharedServicesService,
               public dialogRef: MatDialogRef<CrearConveniosComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any

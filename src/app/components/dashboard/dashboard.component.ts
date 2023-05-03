@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   _generar_reportes: boolean = false;
   _instituciones_maestro: boolean = false;
   _configurations: boolean = false;
+  _miempresa: boolean = false;
   
   constructor( private login: LoginService,
                public router: Router ) { }
@@ -111,6 +112,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Personal Vinculación':
         this._usuario            = false;
@@ -125,6 +127,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Datos Personales':
         this._usuario                 = false;
@@ -139,6 +142,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Registro de Beneficiario':
         this._usuario                 = false;
@@ -153,6 +157,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Crear Convenios':
         this._usuario                 = false;
@@ -167,6 +172,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Crear Proyecto':
         this._usuario                 = false;
@@ -181,6 +187,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Crear Proceso':
         this._usuario                 = false;
@@ -195,6 +202,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Crear Grupos':
         this._usuario                 = false;
@@ -209,6 +217,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Agregar Actividad':
         this._usuario                 = false;
@@ -223,6 +232,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Generar Reportes':
         this._usuario                 = false;
@@ -237,6 +247,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = true;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._miempresa  = false;
         break;
       case 'Instituciones':
         this._usuario                 = false;
@@ -251,6 +262,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes        = false;
         this._instituciones_maestro   = true;
         this._configurations          = false;
+        this._miempresa  = false;
         break;
       case 'Configuraciones':
         this._usuario                 = false;
@@ -265,7 +277,23 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes        = false;
         this._instituciones_maestro   = false;
         this._configurations          = true;
+        this._miempresa  = false;
         break;
+        case 'Mi empresa':
+          this._usuario                 = false;
+          this._personal                = false;
+          this._datos_personales        = false;
+          this._registro_beneficiario   = false;
+          this._registro_convenio       = false;
+          this._generar_proyectos       = false;
+          this._generar_procesos        = false;
+          this._agrupar_estudiantes     = false;
+          this._agregar_actividad       = false;
+          this._generar_reportes        = false;
+          this._instituciones_maestro   = false;
+          this._configurations          = false;
+          this._miempresa  = true;
+          break;
     }
   }  
 

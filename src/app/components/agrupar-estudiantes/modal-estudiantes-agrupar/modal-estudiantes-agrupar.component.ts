@@ -7,6 +7,7 @@ import { EstudiantesService } from '../../dashboard/estudiantes/services/estudia
 import { environment } from 'src/environments/environment.prod';
 import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2'
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -38,8 +39,24 @@ export class ModalEstudiantesAgruparComponent implements OnInit {
   columnHead: any = [ 'Nombres', 'Capacidades', 'Curso', 'seleccionar' ];
   columnHeadGrupo: any = [ 'seleccionar', 'Nombres', 'Capacidades', 'Curso' ]
   public alumnosLista: any = '';
-  public codCia = environment.codCia;
-  constructor( public registrarAlumno: RegistroAlumnoService,
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  constructor( public registrarAlumno: RegistroAlumnoService, public general: GeneralService,
                private alumnos: EstudiantesService,
                public dialogRef: MatDialogRef<AgruparEstudiantesComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any) { }

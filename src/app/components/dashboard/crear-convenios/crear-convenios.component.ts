@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalConvenioEspecificosComponent } from './modal-convenio-especificos/modal-convenio-especificos.component';
 import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2'
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -46,10 +47,28 @@ export class CrearConveniosComponent implements OnInit {
     fFin:      new FormControl( new Date(), [ Validators.required ])
   });
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+
   constructor(  public dialog:          MatDialog, 
                 public token:           TokenService, 
                 public convenioMacro:   CrearConveniosService,
+                public general: GeneralService,
                 public registrarAlumno: RegistroAlumnoService,
                 public personal:        PersonalVinculacionService,
                 public DataMaster:      SharedServicesService

@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CrearConveniosService } from '../crear-convenios/services/crear-convenios.service';
 import { ModalConvenioEspecificosComponent } from '../crear-convenios/modal-convenio-especificos/modal-convenio-especificos.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -59,9 +60,28 @@ export class GenerarProyectosComponent implements OnInit {
     alias:                          new FormControl( '', [ Validators.required, Validators.maxLength(50) ])
   });
 
-  public codCia = environment.codCia; 
+
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  
   constructor(public dialog: MatDialog, 
               public token: TokenService, 
+              public general: GeneralService,
               private proyecto: ProyectosService,
               public convenioMacro: CrearConveniosService,
               public DataMaster: SharedServicesService

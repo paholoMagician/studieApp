@@ -14,6 +14,7 @@ import { ProcesosService } from './procesos-services/procesos.service';
 
 import Swal from 'sweetalert2'
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -41,7 +42,23 @@ export class ProcesosComponent implements OnInit {
   icon_button: string = 'add';
   textButton: string = 'Crear';
 
-  public codCia = environment.codCia;
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
 
   public alumnosLista:  any     =  [];
   public decanoLista: any       =  [];
@@ -65,6 +82,7 @@ export class ProcesosComponent implements OnInit {
                public dialog:           MatDialog,
                public proceso:          ProcesosService,
                public  registrarAlumno: RegistroAlumnoService,
+               public general: GeneralService,
                public  shared:          SharedServicesService,
                private alumnos:         EstudiantesService,
                public  personal:        PersonalVinculacionService,

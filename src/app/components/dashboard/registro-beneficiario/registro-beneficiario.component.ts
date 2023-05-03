@@ -11,6 +11,7 @@ import { ProcesosService } from '../procesos/procesos-services/procesos.service'
 import { BeneficiariosService } from './beneficiarios.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -45,7 +46,24 @@ export class RegistroBeneficiarioComponent implements OnInit {
   _icon: string = 'add';
   public _cancel: boolean = false;
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
+  
   public dataSource!: MatTableDataSource<any>;
   // 'direccion', 'ciudad',
   columnHead: any = [ 'edit', 'Nombre Proyecto', 'Nombre Benficiario',   'edad', 'C. Representante', 'Jornada'  ];
@@ -55,6 +73,7 @@ export class RegistroBeneficiarioComponent implements OnInit {
                public proceso:         ProcesosService,
                private beneficiarios:  BeneficiariosService,
                public registrarAlumno: RegistroAlumnoService, 
+               public general: GeneralService,
                public proyecto:        ProyectosService,
                public personal:        PersonalVinculacionService,
                public DataMaster:      SharedServicesService ) { }

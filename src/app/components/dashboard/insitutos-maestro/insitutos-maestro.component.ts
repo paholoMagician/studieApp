@@ -8,6 +8,7 @@ import { TokenService } from '../../shared/services-shared/token.service';
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.prod';
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -45,7 +46,23 @@ export class InsitutosMaestroComponent implements OnInit {
   public facultadLista: any = [];
   public tipoInstitucionLista: any = [];
 
-  public codCia = environment.codCia; 
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
 
   public institutosForm = new FormGroup({
     nombreInstituto:              new FormControl( '', [ Validators.required ]),
@@ -60,7 +77,7 @@ export class InsitutosMaestroComponent implements OnInit {
   });
 
 
-  constructor( public DataMaster: SharedServicesService, public token: TokenService, public institutos: InstitutosService ) { }
+  constructor( public DataMaster: SharedServicesService, public general: GeneralService, public token: TokenService, public institutos: InstitutosService ) { }
 
   ngOnInit(): void {
     this.getDataMaster('PRV00');

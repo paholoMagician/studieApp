@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2'
 import { MatDialog } from '@angular/material/dialog';
 import { ModalEstudiantesAgruparComponent } from './modal-estudiantes-agrupar/modal-estudiantes-agrupar.component';
+import { GeneralService } from 'src/app/services/general.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -30,11 +31,27 @@ const Toast = Swal.mixin({
 })
 export class AgruparEstudiantesComponent implements OnInit {
 
-  public codCia = environment.codCia;
+  public codCia: string = environment.codCia;
+
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
 
   columnHead: any = [ 'edit', 'Nombre del Grupo', 'FecCreacion', 'Alumnos' ]; 
 
-  constructor(  public token: TokenService, 
+  constructor(  public token: TokenService, public general: GeneralService,
                 public registrarAlumno: RegistroAlumnoService,
                 public shared: SharedServicesService,
                 private alumnos: EstudiantesService,
@@ -48,6 +65,7 @@ export class AgruparEstudiantesComponent implements OnInit {
 
   ngOnInit(): void {
       // llamar a los padres de los grupos
+      // this.getCia();
       this.obtenerGrupoTipo('padre', 'void')
   }
 
