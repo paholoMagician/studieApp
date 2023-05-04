@@ -39,7 +39,7 @@ export class ModalEstudiantesAgruparComponent implements OnInit {
   columnHead: any = [ 'Nombres', 'Capacidades', 'Curso', 'seleccionar' ];
   columnHeadGrupo: any = [ 'seleccionar', 'Nombres', 'Capacidades', 'Curso' ]
   public alumnosLista: any = '';
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -64,6 +64,7 @@ export class ModalEstudiantesAgruparComponent implements OnInit {
   public dataSource!: MatTableDataSource<any>;
   public dataSourceAdd!: MatTableDataSource<any>;
   ngOnInit(): void {
+    this.getCia();
     this.getUsers(); 
     this.obtenerCursos();
     this.obtenerGrupoTipo('hijos', this.data.codecGrupo);

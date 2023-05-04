@@ -38,7 +38,7 @@ export class RegistrovinculacionComponent implements OnInit {
   public esValida:         boolean   = false;
   
   
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -77,6 +77,8 @@ export class RegistrovinculacionComponent implements OnInit {
         this.getDataMaster('UG00');
         // Capacidad
         this.getDataMaster('CPAD');
+
+        this.getCia();
 
   }
 

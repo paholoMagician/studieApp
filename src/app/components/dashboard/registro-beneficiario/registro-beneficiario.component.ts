@@ -46,7 +46,7 @@ export class RegistroBeneficiarioComponent implements OnInit {
   _icon: string = 'add';
   public _cancel: boolean = false;
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -102,6 +102,8 @@ export class RegistroBeneficiarioComponent implements OnInit {
 
     this.obtenerProyectos();
     this.obtenerBeneficiarios();
+
+    this.getCia();
 
   }
 

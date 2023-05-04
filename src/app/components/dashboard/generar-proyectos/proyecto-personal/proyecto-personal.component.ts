@@ -15,7 +15,7 @@ import { GeneralService } from 'src/app/services/general.service';
 })
 export class ProyectoPersonalComponent implements OnInit {
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -46,6 +46,7 @@ export class ProyectoPersonalComponent implements OnInit {
             ) { }
 
   ngOnInit(): void {
+    this.getCia();
     this.obtenerPersonal();
   }
 

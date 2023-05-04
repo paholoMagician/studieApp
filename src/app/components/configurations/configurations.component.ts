@@ -32,7 +32,7 @@ export class ConfigurationsComponent implements OnInit {
   _opacity: number = 0;
 
   public _explain: string = '';
-  public codCia: string = environment.codCia; 
+  public codCia: string = ''; 
 
   getCia() {
     this.general.getCia().subscribe({
@@ -64,6 +64,7 @@ export class ConfigurationsComponent implements OnInit {
   ngOnInit(): void {
     this.validationProcess();
     this.obtenerConfiguracionesVinculacion();
+    this.getCia();
   }
 
   validationProcess() {

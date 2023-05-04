@@ -42,7 +42,7 @@ export class ProcesosComponent implements OnInit {
   icon_button: string = 'add';
   textButton: string = 'Crear';
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -89,12 +89,11 @@ export class ProcesosComponent implements OnInit {
                private proyecto:        ProyectosService, ) { }
 
   ngOnInit(): void {
-    
+    this.getCia();
     this.obtenerPersonal();
     this.getUsers();
     this.obtenerProcesosCreados();
     this.obtenerProyectos();
-
    }
 
   onSubmit() { 

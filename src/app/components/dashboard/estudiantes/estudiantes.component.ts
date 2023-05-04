@@ -36,7 +36,7 @@ export class EstudiantesComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -88,7 +88,7 @@ export class EstudiantesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-
+    this.getCia();
   }
 
   onSubmit() {

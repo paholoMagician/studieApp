@@ -21,7 +21,7 @@ export class GenerarReportesComponent implements OnInit {
   public _carrera:    string = '';
   public _supervisor: string = '';
   
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -44,6 +44,7 @@ export class GenerarReportesComponent implements OnInit {
   constructor(private actividades:  GenerarActividadService, public general: GeneralService,) { }
 
   ngOnInit(): void {
+    this.getCia();
     this.obtenerEstudiante();
     this.obtenerRegistrosdeActividades();
   }

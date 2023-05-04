@@ -61,7 +61,7 @@ export class GenerarProyectosComponent implements OnInit {
   });
 
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -90,6 +90,7 @@ export class GenerarProyectosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerConvenioMacro();
     this.obtenerProyectos();
+    this.getCia();
   }
 
   public count = 0;

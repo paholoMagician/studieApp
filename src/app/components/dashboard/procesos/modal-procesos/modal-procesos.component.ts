@@ -26,7 +26,7 @@ const Toast = Swal.mixin({
 })
 export class ModalProcesosComponent implements OnInit {
   
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -51,7 +51,8 @@ export class ModalProcesosComponent implements OnInit {
   constructor( private estudiantes: EstudiantesService, public general: GeneralService, public dialogRef: MatDialogRef<ProcesosComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.obtenerEstudiantes()
+    this.obtenerEstudiantes();
+    this.getCia();
   }
 
   obtenerGrupo(codGrupo: string, nombreGrupo: string) {

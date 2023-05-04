@@ -54,7 +54,7 @@ export class AgregarActividadComponent implements OnInit {
     horas:                new FormControl( '', [ Validators.required ])
   });
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -87,34 +87,17 @@ export class AgregarActividadComponent implements OnInit {
   public codec: string = '';
   public xuser: any = ''
   ngOnInit(): void {
-
-    // let date = new Date();
-    // let dia = date.getDay();
-    // let mes = date.getMonth();
-    // let anio = date.getFullYear();
-
     this.getDataMaster('LA00');
-
     let xgrupo: any = sessionStorage.getItem('codGrupo');
-
+    this.getCia();
     if( xgrupo == undefined || xgrupo == null || xgrupo == '' ) this.dis_button_actividad = true; 
     else this.dis_button_actividad = false;
-
-    // this.agregarActividadForm
-    // .controls['fecCreacion']
-    // .setValue(dia.toString().padStart(2,'0')+'/'+mes.toString().padStart(2,'0')+'/'+anio.toString());
-    
     this.obtenerImagen();
     this.ObtenerAlumnosGrupoRegistros();
     this.xuser = sessionStorage.getItem('UserCod');
     console.warn(this.xuser)
-    // this.obtenerProyectos();
     this.codec = 'REGACT-'+this.token.generateRandomString(15);
-    console.warn('CODIGO')
-    console.warn(this.codec)
-
     this.obtenerRegistrosdeActividades();
-
   }
 
   public listaActividades: any = [];

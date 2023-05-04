@@ -32,9 +32,7 @@ export class MiempresaComponent implements OnInit {
   public facultadLista: any = [];
   public tipoInstitucionLista: any = [];
 
-  public codCia: string = environment.codCia;
-
-
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -72,7 +70,7 @@ export class MiempresaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.getCia();
+    this.getCia();
     this.getDataMaster('PRV00')
   }
 

@@ -232,7 +232,7 @@ export class EvaluacionPracticanteComponent implements OnInit {
     observaciones_generales:   new FormControl( '', [ Validators.required ])
   });
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -254,6 +254,8 @@ export class EvaluacionPracticanteComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerEstudiante()
+    /** Funciones de configuracion del reporte no consumen API */
+    //#region INICIO
     this.addCalificacion('con_parti')
     this.addCalificacion('interes_aprender_en')
     this.addCalificacion('posee_iniciativa_con')
@@ -274,25 +276,9 @@ export class EvaluacionPracticanteComponent implements OnInit {
     this.addCalificacion('es_creativo_prop')
     this.addCalificacion('es_perseverante_cu')
     this.addCalificacion('es_puntual_en')
+    //#endregion
   }
 
-
-  /**ESTA FUNCIONA HASTA AHORA */
-  // downloadPDF(titulo:any) {
-  //   var doc = new jsPDF();
-  //   const canvas = document.createElement('canvas');
-  //   canvas.width = this.content.nativeElement.offsetWidth;
-  //   canvas.height = this.content.nativeElement.offsetHeight;
-  //   const htmlElement = this.content.nativeElement;
-  //   html2canvas(htmlElement).then(canvas => {
-  //     const imgData = canvas.toDataURL('image/png');
-  //     const imgProps = doc.getImageProperties(imgData);
-  //     const pdfWidth = doc.internal.pageSize.getWidth();
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  //     doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //     doc.save(titulo+'.pdf');
-  //   });
-  // }
 
   downloadPDF(titulo: any) {
     const doc = new jsPDF();
@@ -313,9 +299,6 @@ export class EvaluacionPracticanteComponent implements OnInit {
           img.onload = () => resolve(img);
           img.onerror = reject;
           img.src = src;
-          
-          // console.log('IMG')
-          // console.log(img)
         });
       };
   
@@ -349,72 +332,6 @@ export class EvaluacionPracticanteComponent implements OnInit {
       });
     });
   }
-
-  // public downloadPDF(titulo:any): void {
-  //   const doc = new jsPDF();
-  //   setTimeout(() => {
-  //   const content = this.content.nativeElement;
-  //   html2canvas(content).then((canvas) => {
-  //     const imgData = canvas.toDataURL('image/png');
-  //     const imgProps = doc.getImageProperties(imgData);
-  //     const pdfWidth = doc.internal.pageSize.getWidth();
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  //     doc.html(content.innerHTML, {
-  //       callback: () => {
-  //         doc.save(titulo+'.pdf');
-  //       },
-  //       x: 0,
-  //       y: 0,
-  //       html2canvas: {
-  //         scale: 1,
-  //         width: pdfWidth,
-  //         height: pdfHeight,
-  //         x: 0,
-  //         y: 0,
-  //         canvas: canvas,
-  //       },
-  //     });
-  //   });
-  //   }, 2500)
-  // }
-
-
-  // downloadPDF(titulo:any) {
-  //   const doc = new jsPDF();
-
-  //   // Get the content of the report template
-  //   const reportContent = this.content.nativeElement;
-
-  //   // Set the page height and width
-  //   const pageHeight = doc.internal.pageSize.getHeight();
-  //   const pageWidth = doc.internal.pageSize.getWidth();
-
-  //   // Split the report content into multiple pages if needed
-  //   const contentSplit = doc.splitTextToSize(reportContent.innerHTML, pageWidth - 20);
-  //   const pageCount = contentSplit.length;
-  //   let currentPosition = 10;
-  //   let i = 0;
-
-  //   // Loop through each page and add it to the PDF
-  //   while (i < pageCount) {
-  //     // Add the content to the current page
-  //     doc.text(10, currentPosition, contentSplit[i]);
-
-  //     // Increment the current position and page count
-  //     currentPosition += 10;
-  //     i++;
-
-  //     // Add a new page if needed
-  //     if (i < pageCount) {
-  //       doc.addPage();
-  //       currentPosition = 10;
-  //     }
-  //   }
-
-  //   // Save the PDF
-  //   doc.save(titulo+'.pdf');
-  // }
-
 
   addCalificacion(item: string) {
 

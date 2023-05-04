@@ -46,7 +46,7 @@ export class InsitutosMaestroComponent implements OnInit {
   public facultadLista: any = [];
   public tipoInstitucionLista: any = [];
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -83,6 +83,7 @@ export class InsitutosMaestroComponent implements OnInit {
     this.getDataMaster('PRV00');
     this.getDataMaster('TIN');
     this.obtenerIntitutos();
+    this.getCia();
   }
 
   applyFilter(event: Event) {

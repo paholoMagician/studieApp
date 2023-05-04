@@ -29,23 +29,23 @@ const Toast = Swal.mixin({
 })
 export class DatosPersonalesComponent implements OnInit {
   
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
-  // getCia() {
-  //   this.general.getCia().subscribe({
-  //     next: (element:any) => {
-  //       console.warn(element);
-  //       this.codCia = element[0].codcia;
-  //     },
-  //     error: (e:any) => {
-  //       console.error(e)
-  //     },
-  //     complete: () => {
-  //       console.log(this.codCia);
-  //       return this.codCia;
-  //     }
-  //   })
-  // }
+  getCia() {
+    this.general.getCia().subscribe({
+      next: (element:any) => {
+        console.warn(element);
+        this.codCia = element[0].codcia;
+      },
+      error: (e:any) => {
+        console.error(e)
+      },
+      complete: () => {
+        console.log(this.codCia);
+        return this.codCia;
+      }
+    })
+  }
 
   constructor( public personal: PersonalVinculacionService, 
                public general: GeneralService, public estudiante: EstudiantesService,  
@@ -139,20 +139,20 @@ export class DatosPersonalesComponent implements OnInit {
         console.warn(this.codCia);
 
         let xtipo: any = sessionStorage.getItem('tipo');
-        if( xtipo == 'docente' || xtipo == 'ADMIN' || xtipo == 'ADMINISTRADOR' ) {
+        if( xtipo == 'docente' ) {
           this._entidad_alumno   = false;
           this._entidad_personal = true;
           this.tipo = 'personal';
           this._entidad = 'Personal';
         } 
-        // else if (xtipo == 'ADMIN' || xtipo == 'ADMINISTRADOR') {
-        //   this._entidad_alumno   = false;
-        //   this._entidad_personal = true;
-        //   this.tipo = 'ADMINISTRADOR';
-        //   this._entidad = 'Administrador';
-        //   this.viewer_inputs = false;
-        //   this.readonly_input = true;
-        // }
+        else if (xtipo == 'ADMIN' || xtipo == 'ADMINISTRADOR') {
+          this._entidad_alumno   = false;
+          this._entidad_personal = true;
+          this.tipo = 'ADMINISTRADOR';
+          this._entidad = 'Administrador';
+          this.viewer_inputs = false;
+          this.readonly_input = true;
+        }
         else {
           this._entidad_alumno   = true;
           this._entidad_personal = false;

@@ -43,7 +43,7 @@ export class ModalConvenioEspecificosComponent implements OnInit {
     convenioFisico:                   new FormControl( '', [ Validators.required ])
   });
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -77,6 +77,8 @@ export class ModalConvenioEspecificosComponent implements OnInit {
   _icon: string = 'file_present';
   _icon_change: string = 'edit'
   ngOnInit(): void {
+
+    this.getCia();
 
     // alert(this.data.visual)
 

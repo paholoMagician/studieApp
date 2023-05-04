@@ -47,7 +47,7 @@ export class CrearConveniosComponent implements OnInit {
     fFin:      new FormControl( new Date(), [ Validators.required ])
   });
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -87,8 +87,9 @@ export class CrearConveniosComponent implements OnInit {
   public columnHead: any = [ 'edit', 'Fecha Creación','Nombre Convenio', 'F. Desde', 'F. Hasta', 'Nombre Convenio I.', 'Representante Convenio I.', 'Representante Convenio U.', 'ID único Universidad' ];
 
   ngOnInit(): void {
-    this.obtenerConvenioMacro();
-    
+
+    this.getCia();
+    this.obtenerConvenioMacro();    
     this.getDataMaster('PRV00');
     // Estado Civil
     this.getDataMaster('R02');

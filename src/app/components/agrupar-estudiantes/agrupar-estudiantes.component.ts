@@ -31,7 +31,7 @@ const Toast = Swal.mixin({
 })
 export class AgruparEstudiantesComponent implements OnInit {
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -65,7 +65,7 @@ export class AgruparEstudiantesComponent implements OnInit {
 
   ngOnInit(): void {
       // llamar a los padres de los grupos
-      // this.getCia();
+      this.getCia();
       this.obtenerGrupoTipo('padre', 'void')
   }
 

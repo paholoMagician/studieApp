@@ -41,7 +41,7 @@ export class PersonalVinculacionComponent implements OnInit {
   public columnHead: any = ['edit', 'Nombre', 'cedula', 'tipoPersonal', 'Correo', 'telefonoCelular', 'provincia', 'direccion']
   public dataSource!: MatTableDataSource<any>;
   
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -84,6 +84,7 @@ export class PersonalVinculacionComponent implements OnInit {
     this.getDataMaster('UG00');
     this.obtenerPersonalVinculacion();
     // this.personalVinculacionForm.controls['tipoPers'].setValue('Docente')
+    this.getCia();
 
   }
 

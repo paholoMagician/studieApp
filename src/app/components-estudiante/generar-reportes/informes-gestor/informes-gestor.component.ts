@@ -39,7 +39,7 @@ export class InformesGestorComponent implements OnInit {
   public _carrera:    string = '';
   public _supervisor: string = '';
 
-  public codCia: string = environment.codCia;
+  public codCia: string = '';
 
   getCia() {
     this.general.getCia().subscribe({
@@ -60,7 +60,8 @@ export class InformesGestorComponent implements OnInit {
   constructor( private actividades:  GenerarActividadService, public general: GeneralService ) { }
 
   ngOnInit(): void {
-    this.obtenerEstudiante()
+    this.obtenerEstudiante();
+    this.getCia();
   }
 
   obtenerEstudiante() {
