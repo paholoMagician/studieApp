@@ -1,36 +1,52 @@
 <section class="header p-3">
-    <h2>Instituciones</h2>
+    <h2>Mi Instituto</h2>
 </section>
 <section class="table p-3 w-100">    
+    <small class="m-3">   
+      <span class="text-primary">
+        {{this.msjLicense}}
+      </span>
+    </small>
     <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
           <form [formGroup]="institutosForm"  (ngSubmit)="onSubmit()"
               class="d-flex justify-content-center align-items-end w-100">
             <div class="d-flex justify-content-between flex-wrap align-items-end  ">
-            
+
+              
             <div class="m-2 d-flex flex-column w-50">
-                <label for="numeroProceso">Nombre Instituto 
-                    <strong class="text-danger">*</strong>
-                </label>
-                <input class="inpForms form-control rounded-pill"
-                       formControlName="nombreInstituto" 
-                       #nombreInstituto id="nombreInstituto">
+              <label for="nombre">Nombre Instituto 
+                  <strong class="text-danger">*</strong>
+              </label>
+              <input class="inpForms form-control rounded-pill"
+                     formControlName="nombre" 
+                     #nombre id="nombre">
             </div>
-            
-            <div class="m-2 d-flex flex-column">
-                <label for="numeroProceso">Alias 
+          
+
+            <div class="m-2 d-flex flex-column w-25">
+                <label for="nombre">R.U.C.: 
                     <strong class="text-danger">*</strong>
                 </label>
                 <input class="inpForms form-control rounded-pill"
-                       formControlName="alias" 
-                       #alias id="alias">
+                       formControlName="ruc" 
+                       #ruc id="ruc">
+            </div>
+
+            <div class="m-2 d-flex flex-column w-100">
+                <label for="numeroProceso">Breve Descripción de mi insitución 
+                    <strong class="text-danger">*</strong>
+                </label>
+                <input class="inpForms form-control rounded-pill"
+                       formControlName="descripcion" 
+                       #descripcion id="descripcion">
             </div>
 
             <div class="m-2 d-flex flex-column w-25">
-                <label for="idProvincia">Provincia</label>
+                <label for="codProvincia">Provincia</label>
                 <select class="inpForms form-select rounded-pill w-100" 
-                        formControlName="idProvincia" #idProvincia 
+                        formControlName="codProvincia" #codProvincia 
                         (change)="getCantones()"
-                        id="idProvincia" aria-label="">
+                        id="codProvincia" aria-label="">
                         <option *ngFor="let provincia of provinciaLista"                                     
                                 [value]="provincia.codigo">
                                 {{provincia.nombre | titlecase }}                                
@@ -39,9 +55,9 @@
             </div>
 
             <div class="m-2 d-flex flex-column w-25">
-                <label for="idCanton">Cantón</label>
+                <label for="codCanton">Cantón</label>
                 <select class="inpForms form-select rounded-pill w-100"
-                        formControlName="idCanton" #idCanton id="idCanton" aria-label="">
+                        formControlName="codCanton" #codCanton id="codCanton" aria-label="">
                         <option *ngFor="let canton of cantonLista" [value]="canton.codigo" >
                             {{canton.nombre | titlecase }}                                
                         </option>
@@ -56,38 +72,65 @@
             </div>
 
             <div class="m-2 d-flex flex-column">
-                <label for="telefonoCelular">Telf. Celular</label>
+                <label for="telef_a">Telf. Celular</label>
                 <input type="text" class="inpForms form-control rounded-pill"
-                       formControlName="telefonoCelular" 
-                       #telefonoCelular id="telefonoCelular">
+                       formControlName="telef_a" 
+                       #telef_a id="telef_a">
             </div>
             
             <div class="m-2 d-flex flex-column">
-                <label for="telefono">
-                    Teléfono
+                <label for="telf_b">
+                    Teléfono 1
                 </label>
                 <input type="text" class="inpForms form-control rounded-pill"
-                       formControlName="telefono"
-                       #telefono id="telefono">
+                       formControlName="telf_b"
+                       #telf_b id="telf_b">
+            </div>
+            
+            <div class="m-2 d-flex flex-column">
+                <label for="telf_c">
+                    Teléfono 2
+                </label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="telf_c"
+                       #telf_c id="telf_c">
             </div>
 
             <div class="m-2 d-flex flex-column">
-                <label for="telefonoCelular">
-                    Email
+                <label for="email1">
+                    Email 1
                 </label>
                 <input type="text" class="inpForms form-control rounded-pill"
-                       formControlName="email" 
-                       #email id="email">
+                       formControlName="email1" 
+                       #email1 id="email1">
             </div>
 
-            <div class="m-2 d-flex flex-column w-25">
-                <label for="idCanton">Tipo de Institutción</label>
-                <select class="inpForms form-select rounded-pill w-100"
-                        formControlName="tipoInsti" #tipoInsti id="tipoInsti" aria-label="">
-                        <option *ngFor="let tipo of tipoInstitucionLista" [value]="tipo.codigo" >
-                            {{tipo.nombre | titlecase }}                                
-                        </option>
-                </select>
+            <div class="m-2 d-flex flex-column">
+                <label for="email2">
+                    Email 2
+                </label>
+                <input type="text" class="inpForms form-control rounded-pill"
+                       formControlName="email2" 
+                       #email2 id="email2">
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+              <label for="web">
+                  Web
+              </label>
+              <input type="text" class="inpForms form-control rounded-pill"
+                     formControlName="web" 
+                     #web id="web">
+            </div>
+
+            <div class="m-2 d-flex flex-column">
+              <label for="fecha_fundacion">Fecha de Fundación
+                <strong class="text-danger">*</strong>
+              </label>
+              <input type="date" 
+                     class="inpForms form-control rounded-pill"
+                     formControlName="fecha_fundacion"
+                     #fecha_fundacion id="fecha_fundacion" >
             </div>
 
         </div>
@@ -138,82 +181,65 @@
                       edit
                     </mat-icon>
                   </span>
-                  <!-- <span class="delete" (click)="eliminarInstitutos(row.codInstiProy)">
+                  <span class="delete" (click)="eliminarInstituto(row.codcia)">
                     <mat-icon>
                       delete
                     </mat-icon>
-                  </span> -->
+                  </span>
                 </td>
                 
-                <ng-container matColumnDef="alias">
+                <ng-container matColumnDef="nombre">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Alias
+                        Nombre
                     </th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.alias}}
+                      {{row.nombre}}
                     </td>
                 </ng-container>
                 
-                <ng-container matColumnDef="nombreInstituto">
+                <ng-container matColumnDef="descripcion">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Nombre Instituto
+                      Descripcion
                     </th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.nombreInstituto}}
-                    </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="telefono">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Telefono
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                      {{row.telefono}}
-                    </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Email
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                      {{row.email}}
-                    </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="provincia">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Provincia
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                        {{row.provincia}}
-                    </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="canton">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Canton
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                        {{row.canton}}
+                      {{row.descripcion}}
                     </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="direccion">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Direccion
+                      Direccion
                     </th>
                     <td mat-cell *matCellDef="let row">
                       {{row.direccion}}
                     </td>
                 </ng-container>
                 
-                <ng-container matColumnDef="tipoIntituto">
+                <ng-container matColumnDef="email1">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Tipo Instituto
+                        Email
                     </th>
                     <td mat-cell *matCellDef="let row">
-                      {{row.tipoIntituto}}
+                      {{row.email1}}
+                    </td>
+                </ng-container>
+                
+                
+                <ng-container matColumnDef="telef_a">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Telf. 1
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      {{row.telefA}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="web">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Web
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      {{row.web}}
                     </td>
                 </ng-container>
 

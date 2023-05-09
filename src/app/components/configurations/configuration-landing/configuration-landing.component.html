@@ -1,0 +1,109 @@
+<section class="table p-3 w-100">
+    <section class="edit-section mb-2 animate__animated animate__fadeInRight">
+        <div class="title-conf rounded-pill m-3 w-25 d-flex align-items-center p-3">
+            Tema del landing
+        </div>
+        <div class="d-flex">
+            <div class="mt-2 p-4 w-100">
+                <form [formGroup]="landingForm"  (ngSubmit)="onSubmit()">                    
+                    <div class="m-2 d-flex flex-column">
+                        <label for="tituloTema">Título del tema:</label>
+                        <input type="text" 
+                               class="inpForms w-75 form-control rounded-pill"
+                               formControlName="tituloTema"
+                               #tituloTema id="tituloTema">
+                    </div>
+                    <div>
+                        <strong> <h3 class="text-primary"> Imagenes </h3> </strong>
+                    </div>
+                    <div style="width: 290px; ">
+                        <label for="fileUp" 
+                               id="imageUp" 
+                               class="d-flex justify-content-center w-100">
+                            <div class="imgTest"
+                                 [ngStyle]="{'background-image': 'url('+_IMGE+')'}">
+                            </div>
+                        </label>
+                        <input type="file" id="fileUp"
+                               (change)="encodeImageFileAsURL()">
+                    </div>
+                    <div>
+                        <button mat-raised-button color="accent" (click)="saveImagen(_IMGE)">
+                            Guardar Logotipo
+                        </button>
+                    </div>
+                    <hr>
+                    <div>
+                        <strong> <h3 class="text-primary"> Colores </h3> </strong>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="backgroundLanding">
+                                Color de fondo del landing:
+                            </label>
+                            <input type="color"
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="backgroundLanding "
+                                   #backgroundLanding  id="backgroundLanding">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="formularioFondo">Color de fondo del formulario:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="formularioFondo"
+                                   #formularioFondo id="formularioFondo">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="formularioColorLetras">Color de letras del formulario:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="formularioColorLetras"
+                                   #formularioColorLetras id="formularioColorLetras ">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="botonIngresoFondo">Color de fondo del botón de ingreso:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="botonIngresoFondo"
+                                   #botonIngresoFondo id="botonIngresoFondo">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="FormularioColorLetras">Color de letras del botón de ingreso:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="BotonIngresoColorLetras"
+                                   #BotonIngresoColorLetras id="BotonIngresoColorLetras">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="FormularioColorLetras">Color de borde lateral del formulario:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="BordeLateralColor"
+                                   #BordeLateralColor id="BordeLateralColor">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="FormularioColorLetras">Botón de la matrícula:</label>
+                            <input type="color" 
+                                   class="inpForms form-control rounded-pill"
+                                   formControlName="EstadoMatriculaRegistro"
+                                   #EstadoMatriculaRegistro id="EstadoMatriculaRegistro">
+                        </div>
+                        <div class="m-2 d-flex w-50 justify-content-between">
+                            <label for="FormularioColorLetras">Título de bienvenida del landing:</label>
+                            <input type="text" 
+                                   class="inpForms w-100 form-control rounded-pill"
+                                   formControlName="TituloLanding"
+                                   #TituloLanding id="TituloLanding">
+                        </div>
+                    </div>    
+                    <div class="w-100">
+                        <button mat-raised-button class="m-2" type="submit">
+                            Guardar tema del landing
+                        </button>
+                    </div>                
+                </form>            
+            </div>
+        </div>
+    </section>
+</section>

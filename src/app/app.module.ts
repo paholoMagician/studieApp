@@ -53,6 +53,7 @@ import { DashboardModule } from './components/dashboard/dashboard-module/dashboa
 import { EvaluacionPracticanteComponent } from './components-estudiante/generar-reportes/evaluacion-practicante/evaluacion-practicante.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
 import { MiempresaComponent } from './components/miempresa/miempresa.component';
+import { ConfigurationLandingComponent } from './components/configurations/configuration-landing/configuration-landing.component';
 
 @NgModule({
   declarations: [

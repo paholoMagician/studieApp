@@ -99,7 +99,7 @@ export class ProcesosComponent implements OnInit {
   onSubmit() { 
     switch( this.textButton ) {
       case 'Crear':
-        this.guardatProcesos();
+        this.guardarProcesos();
         break;
       case 'Actualizar':
         this.editarProcesos();
@@ -249,7 +249,7 @@ export class ProcesosComponent implements OnInit {
   }
 
   public procesos: any = []
-  guardatProcesos() {
+  guardarProcesos() {
 
     if (this.procesosForm.controls['numeroProceso'].value == '' || this.procesosForm.controls['numeroProceso'].value == null ) Toast.fire({ icon: 'warning', title: 'Número de proceso necesario...' });
     else if (this.procesosForm.controls['idDecanoVinculacion'].value == '' || this.procesosForm.controls['idDecanoVinculacion'].value == null ) Toast.fire({ icon: 'warning', title: 'Decano para la Vinculacion necesario...' });

@@ -4,8 +4,6 @@
 </section>
 
 <section class="table p-3 w-100">
-
-
     
     <section #editDom class="edit-section mb-2 animate__animated animate__fadeInRight">
         <h3 class="p-2 d-flex  align-items-start">
@@ -232,7 +230,7 @@
                            #telefonoCasa id="telefonoCasa">
                 </div>
                 <div class="m-2 d-flex flex-column w-50">
-                    <label for="codCarrera">Capacidades del estudiante</label>
+                    <label for="codCarrera">Capacidades del estudiante</label>  
                     <select class="inpForms form-select rounded-pill w-100"
                             formControlName="capacidades" #capacidades id="capacidades" aria-label="">
                             <option *ngFor="let capacidad of capacidadesLista" [value]="capacidad.codigo" >

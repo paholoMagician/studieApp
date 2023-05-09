@@ -11,6 +11,15 @@ export class ConfigurationServicesService {
   public url = environment.developerModeUrl;
   constructor( private http: HttpClient, public router: Router ) { }
 
+
+  obtenerLandingConf( ccia: string ) {
+    return this.http.get( this.url + 'landingConf/obtenerConfiguracionLanding/' + ccia );
+  }
+
+  guardarLandingConf( model: any [] ) {
+    return this.http.post( this.url + 'landingConf/guardarLandingConf', model );
+  }
+
   guardarConfigVinculacion( model: any [] ) {
     return this.http.post( this.url + 'conf/guardarConfiguracionConvenio', model );
   }
