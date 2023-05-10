@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login/services/login.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { ConfigurationServicesService } from '../configurations/services/configuration-services.service';
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -34,16 +35,20 @@ export class DashboardComponent implements OnInit {
   _generar_reportes: boolean = false;
   _instituciones_maestro: boolean = false;
   _configurations: boolean = false;
+  _asignaciones: boolean = false;
   
   constructor( private login: LoginService,
                public router: Router ) { }
 
                public serverMessageList: any = []
                public icon: any = 'success';
+               
   ngOnInit(): void {
 
     this.login.validate();
     this.valGrupo();
+
+
 
     let x: any = sessionStorage.getItem('UserCod');
     let cgrupo: any = sessionStorage.getItem('codGrupo');
@@ -80,6 +85,9 @@ export class DashboardComponent implements OnInit {
 
   }
 
+
+
+
   public grupoLista: any = [];
   valGrupo() {
     let x: any = sessionStorage.getItem('UserCod')
@@ -111,6 +119,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Personal Vinculación':
         this._usuario            = false;
@@ -125,6 +134,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Datos Personales':
         this._usuario                 = false;
@@ -139,6 +149,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Registro de Beneficiario':
         this._usuario                 = false;
@@ -153,6 +164,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Crear Convenios':
         this._usuario                 = false;
@@ -167,6 +179,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Crear Proyecto':
         this._usuario                 = false;
@@ -181,6 +194,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Crear Proceso':
         this._usuario                 = false;
@@ -195,6 +209,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Crear Grupos':
         this._usuario                 = false;
@@ -209,6 +224,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Agregar Actividad':
         this._usuario                 = false;
@@ -223,6 +239,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = false;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Generar Reportes':
         this._usuario                 = false;
@@ -237,6 +254,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes    = true;
         this._instituciones_maestro    = false;
         this._configurations  = false;
+        this._asignaciones  = false;
         break;
       case 'Instituciones':
         this._usuario                 = false;
@@ -251,6 +269,7 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes        = false;
         this._instituciones_maestro   = true;
         this._configurations          = false;
+        this._asignaciones            = false;
         break;
       case 'Configuraciones':
         this._usuario                 = false;
@@ -265,6 +284,22 @@ export class DashboardComponent implements OnInit {
         this._generar_reportes        = false;
         this._instituciones_maestro   = false;
         this._configurations          = true;
+        this._asignaciones            = false;
+        break;
+      case 'Asignaciones':
+        this._usuario                 = false;
+        this._personal                = false;
+        this._datos_personales        = false;
+        this._registro_beneficiario   = false;
+        this._registro_convenio       = false;
+        this._generar_proyectos       = false;
+        this._generar_procesos        = false;
+        this._agrupar_estudiantes     = false;
+        this._agregar_actividad       = false;
+        this._generar_reportes        = false;
+        this._instituciones_maestro   = false;
+        this._configurations          = false;
+        this._asignaciones            = true;
         break;
     }
   }  

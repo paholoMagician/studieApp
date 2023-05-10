@@ -1,0 +1,195 @@
+<section class="header p-3 " >
+    <h2>Asignacion Proyecto - Proceso </h2>
+  </section>
+  <section class="body d-flex flex-column p-3 w-100">
+    <form [formGroup]="asignProyForm" (ngSubmit)="onSubmitGrupo() "
+          class="d-flex justify-content-start align-items-end " >
+          <section class="w-100 d-flex  flex-column ">
+            <div class="w-100 d-flex" >
+            <div class="m-2 d-flex flex-column col-4">
+                <label for="idProyecto">Asignar Proyecto</label>
+                <select class="inpForms form-select rounded-pill w-100" 
+                        (change)="obtenerProcesosPorProyectos()"
+                        formControlName="idProyecto" #idProyecto id="idProyecto" aria-label="">
+                        <option *ngFor="let proyecto of listaProyectosObtenidas"        
+                                [value]="proyecto.idProyecto">
+                                <strong>Nombre</strong> {{proyecto.nombreProyecto | titlecase }}                                
+                        </option>
+                </select>
+            </div>
+            <div class="m-2 d-flex flex-column col-4">
+                <label for="idProcesos">Asignar Proceso</label>
+                <select class="inpForms form-select rounded-pill w-100"
+                        formControlName="idProcesos" #idProcesos id="idProcesos" aria-label="">
+                        <option *ngFor="let proceso of listaProcesos" [value]="proceso.idProcesos" >
+                            N. Proceso: {{proceso.numeroProceso | titlecase }} | Grupo: {{ proceso.nombreGrupo }}                                
+                        </option>
+                </select>
+            </div>
+            </div>
+            <div *ngIf="_view_personal" class="person m-3 rounded-2">
+                <span> <strong> Asigna al personal encargado de llevar acabo este proyecto y su proceso respectivo: </strong> </span>
+                <div class="d-flex w-100" >
+                    <div class="m-2 d-flex flex-column col-4">
+                        <label for="idCoordinadorGeneral">Coordinador General <strong class="text-danger">*</strong></label>
+                        <select class="inpForms form-select rounded-pill w-100"
+                                formControlName="idCoordinadorGeneral"
+                                #idCoordinadorGeneral 
+                                id="idCoordinadorGeneral">
+                                <option *ngFor="let personal of personalLista" [value]="personal.codPersonal" >
+                                    <strong> {{personal.personaNombre | titlecase }} </strong> |
+                                    <span class="text-primary"> {{ personal.nombreTippo | uppercase }} </span>
+                                </option>
+                        </select>
+                    </div>
+                    <div class="m-2 d-flex flex-column col-4">
+                        <label for="idContraparte">Contraparte <strong class="text-danger">*</strong></label>
+                        <select class="inpForms form-select rounded-pill w-100"
+                                formControlName="idContraparte"
+                                #idContraparte 
+                                id="idContraparte">
+                                <option *ngFor="let contraparte of contraparteLista" [value]="contraparte.codPersonal" >
+                                    <strong> {{contraparte.personaNombre | titlecase }} </strong> |
+                                    <span class="text-primary"> {{ contraparte.nombreTippo | uppercase }} </span>
+                                </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>    
+        </section>      
+      
+    </form>
+    <div class="d-flex p-2 justify-content-end align-items-center">
+        <button mat-flat-button 
+                  color="warn" 
+                  (click)="limpiar()" *ngIf="_cancel">
+              <mat-icon>cancel</mat-icon>
+        </button>
+        <button  type="submit" style="width: 300px;" mat-raised-button color="primary"   
+                class="d-flex align-items-center"
+                (click)="onSubmitGrupo()">
+                <mat-icon>
+                  {{_icon}}
+                </mat-icon>
+                <span>
+                  {{buttonTitle}} Asignación
+                </span>
+         </button>
+    </div>
+    <div class="w-100 p-2">
+
+
+        <div class="table-responsive w-100">
+            <table mat-table [dataSource]="dataSource" class="mtTable shadow" matSort class="w-100" >
+    
+                <ng-container matColumnDef="edit">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      <span>
+                        <mat-icon>
+                          edit
+                        </mat-icon>
+                      </span>
+                      <span>
+                        <mat-icon>
+                          delete
+                        </mat-icon>
+                      </span>
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                      <span class="edit" (click)="catchDataGrupo(row)" >
+                        <mat-icon>
+                          edit
+                        </mat-icon>
+                      </span>
+                      <span class="delete" (click)="eliminarAsignacion(row.id)">
+                        <mat-icon  >
+                          delete
+                        </mat-icon>
+                      </span>
+                    </td>
+    
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="nombreProyecto">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Nombre del proyecto
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.nombreProyecto | uppercase}}
+                    </td>
+    
+                  </ng-container>
+
+                  <ng-container matColumnDef="numeroProceso">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Proceso
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.numeroProceso | uppercase}}
+                    </td>
+    
+                  </ng-container>
+
+                  <ng-container matColumnDef="coordinadorGeneral">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Coordinador General
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                        {{row.coordinadorGeneral | uppercase}}
+                    </td>
+    
+                  </ng-container>
+
+                  <ng-container matColumnDef="Contraparte">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Contraparte
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.contraparte | uppercase }}
+                    </td>
+    
+                  </ng-container>
+
+                  <ng-container matColumnDef="Instituto">
+                    
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Instituto
+                    </th>
+                    
+                    <td mat-cell *matCellDef="let row">
+                        ({{row.alias | uppercase}}) - {{ row.nombreInstituto | uppercase }}
+                    </td>
+    
+                  </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="columnHead"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnHead;"></tr>
+            
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">
+                    Datos no encontrados...
+                  </td>
+                </tr>
+            </table>
+            <mat-paginator [length]="100"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page">
+  </mat-paginator>    
+    </div>
+    </div>
+</section>
+  

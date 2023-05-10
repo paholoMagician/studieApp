@@ -2,10 +2,29 @@
 
 <div class="cont container-fluid d-flex justify-content-around align-items-center m-0 p-4" id="loginForm" >
     
-    <div class="darkBox animate__animated animate__fadeInLeft"   >
+    <div class="darkBox animate__animated animate__fadeInLeft d-flex justify-content-center flex-column align-items-center">
         <figure>
             <img id="img" src="../../../assets/logo.gif" width="300px" alt="">
         </figure>
+        <section class="text-info">
+            <h3> Total de inscripciones abiertas ( {{_cantidad_procesos_act}} )</h3>
+        </section>
+        <section class="boxdatas">
+            <div *ngFor="let xinscrip of lisConfVinc" class="boxdata m-2 p-4" >
+                <div class="d-flex align-items-center fs-6 "  > <mat-icon>workspace_premium</mat-icon> {{xinscrip.nombre_inscrip}} </div>
+                <div class="text-secondary w-100" style="font-size: 8pt; text-align: right; "> Fecha Apertura: {{xinscrip.fecha_inicio | date: 'dd-MMM-yyyy'}} </div>
+                <div class="text-secondary w-100" style="font-size: 8pt; text-align: right; "> Fecha Cierre: {{xinscrip.fecha_fin | date: 'dd-MMM-yyyy' }} </div>
+                <div class="w-100 m-0">
+                    <button mat-raised-button 
+                            color="warn"
+                            (click)="registrar(xinscrip)"
+                            class="mt-2 w-100">
+                            <mat-icon>done</mat-icon>
+                            Regsitrarme a este proceso
+                    </button>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div class="box animate__animated animate__fadeInRight">
@@ -34,10 +53,6 @@
                     Olvide mi Contraseña
                 </small> 
                 <mat-divider></mat-divider>
-                <small class="secbtn d-flex align-items-center" (click)="registrar()">
-                    <mat-icon>manage_accounts</mat-icon>
-                    Regsitrarme
-                </small> 
         </section>
     </div>
     

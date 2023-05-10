@@ -233,7 +233,9 @@ export class RegistrovinculacionComponent implements OnInit {
 
 
   salir () {
-    this.router.navigate(['/ingreso'])
+    localStorage.removeItem('cod_processs_register');
+    localStorage.removeItem('cod_group_register');
+    this.router.navigate(['/ingreso']);
   }
 
   crearCuentaDeAlumno(codAlumno: string) {
@@ -245,18 +247,18 @@ export class RegistrovinculacionComponent implements OnInit {
   public alumnoLista: any = [];
   onSubmit() {
 
-    if( 
-      (this.alumnoForm.controls['alumnoNombre'].value == '' || this.alumnoForm.controls['alumnoNombre'].value == null || this.alumnoForm.controls['alumnoNombre'].value == undefined )
-      ||
-      (this.alumnoForm.controls['cedula'].value == '' || this.alumnoForm.controls['cedula'].value == null || this.alumnoForm.controls['cedula'].value == undefined )
-      ||
-      (this.alumnoForm.controls['edad'].value == '' || this.alumnoForm.controls['edad'].value == null || this.alumnoForm.controls['edad'].value == undefined )
-      ||
-      (this.alumnoForm.controls['carrera'].value == '' || this.alumnoForm.controls['carrera'].value == null || this.alumnoForm.controls['carrera'].value == undefined )
-      ||
-      (this.alumnoForm.controls['semestre'].value == '' || this.alumnoForm.controls['semestre'].value == null || this.alumnoForm.controls['semestre'].value == undefined )
-      ||
-      (this.alumnoForm.controls['facultad'].value == '' || this.alumnoForm.controls['facultad'].value == null || this.alumnoForm.controls['facultad'].value == undefined )
+    if ( 
+       ( this.alumnoForm.controls['alumnoNombre'].value == '' || this.alumnoForm.controls['alumnoNombre'].value == null || this.alumnoForm.controls['alumnoNombre'].value == undefined )
+       ||
+       ( this.alumnoForm.controls['cedula']      .value == '' || this.alumnoForm.controls['cedula'].value == null || this.alumnoForm.controls['cedula'].value == undefined )
+       ||
+       ( this.alumnoForm.controls['edad']        .value == '' || this.alumnoForm.controls['edad'].value == null || this.alumnoForm.controls['edad'].value == undefined )
+       ||
+       ( this.alumnoForm.controls['carrera']     .value == '' || this.alumnoForm.controls['carrera'].value == null || this.alumnoForm.controls['carrera'].value == undefined )
+       ||
+       ( this.alumnoForm.controls['semestre']    .value == '' || this.alumnoForm.controls['semestre'].value == null || this.alumnoForm.controls['semestre'].value == undefined )
+       ||
+       ( this.alumnoForm.controls['facultad']    .value == '' || this.alumnoForm.controls['facultad'].value == null || this.alumnoForm.controls['facultad'].value == undefined )
     ) {
       Toast.fire({
         icon: 'warning',
@@ -295,23 +297,23 @@ export class RegistrovinculacionComponent implements OnInit {
         codCurso:this.alumnoForm.controls['codCurso'].value,
         capacidades:this.alumnoForm.controls['capacidad'].value
       }
-    console.warn(this.alumnoLista);
-    this.DataMaster.guardarAlumno(this.alumnoLista).subscribe({
-      next: (x) => {
-        Toast.fire({
-          icon: 'success',
-          title: 'Te has unido a la vinculación'
-        })
-      }, error: () => {
-        Toast.fire({
-          icon: 'error',
-          title: 'Ups! Algo ha pasado... (ERROR: #001)'
-        })
-      }, complete: () => {
-        this.crearCuentaDeAlumno(x);
-        this.router.navigate(['/ingreso'])
-      }
-    })
+      console.warn(this.alumnoLista);
+      this.DataMaster.guardarAlumno(this.alumnoLista).subscribe({
+        next: (x) => {
+          Toast.fire({
+            icon: 'success',
+            title: 'Te has unido a la vinculación'
+          })
+        }, error: () => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Ups! Algo ha pasado... (ERROR: #001)'
+          })
+        }, complete: () => {
+          this.crearCuentaDeAlumno(x);
+          this.salir();
+        }
+      })
   }
   }
 

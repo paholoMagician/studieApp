@@ -359,6 +359,7 @@ export class ProcesosComponent implements OnInit {
 
   public personalVinculacion: any = [];
   public contraparteLista: any = [];
+  public personalLista: any = []
   obtenerPersonal() {
     this.proyecto.obtenerPersonalViculacio(this.codCia).subscribe({
       next: (personal) => {

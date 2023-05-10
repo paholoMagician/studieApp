@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment.prod';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { ProcesosService } from '../dashboard/procesos/procesos-services/procesos.service';
 import { EstudiantesService } from '../dashboard/estudiantes/services/estudiantes.service';
 import { TokenService } from '../shared/services-shared/token.service';

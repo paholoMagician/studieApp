@@ -13,7 +13,7 @@ export class RegistroAlumnoService {
 
 
   getDataMaster(codigoMaster: string) {
-    return this.http.get( this.url + 'Master/GetDataMaster/' + codigoMaster )
+    return this.http.get( this.url + 'Master/GetDataMaster/' + codigoMaster );
   }
 
   guardarAlumno( model: any [] ) {

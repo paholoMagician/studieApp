@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2'
 import { RegistroAlumnoService } from '../registrovinculacion/registrovinculacionServices/registro-alumno.service';
+import { ConfigurationServicesService } from '../configurations/services/configuration-services.service';
+import { environment } from 'src/environments/environment.prod';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -27,6 +29,7 @@ const Toast = Swal.mixin({
 })
 export class LoginComponent implements OnInit {
 
+  public codCia = environment.codCia;
   hide = true;
 
   public loginForm = new FormGroup({
@@ -35,10 +38,12 @@ export class LoginComponent implements OnInit {
   });
 
   public user: any = [];
-  constructor( private login: LoginService, public router: Router ) { }
+  constructor( private login: LoginService, public router: Router,
+    public conf: ConfigurationServicesService, ) { }
 
   ngOnInit(): void {
     this.login.validate();
+    this.obtenerConfiguracionesVinculacion();
   }
 
   onSubmit() {
@@ -68,14 +73,33 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  registrar(){
+  registrar(data: any){
 
     /**------------------------------- */
     /**VALIDACION */
     /**------------------------------- */
-
+    localStorage.setItem('cod_processs_register',data.cod_proceso);
+    localStorage.setItem('cod_group_register',data.cod_grupo);
     this.router.navigate(['/Registro'])
 
+  }
+
+  lisConfVinc: any = [];
+  _cantidad_procesos_act: number = 0;
+  obtenerConfiguracionesVinculacion() {
+    this.conf.obtenerConfVinc(this.codCia).subscribe({
+      next: (confs) => {
+        this.lisConfVinc = confs;
+        console.log('CONFIGURACIONES')
+        console.log(this.lisConfVinc)
+        this._cantidad_procesos_act = this.lisConfVinc.length;
+        // this.inscripciones = this.lisConfVinc.nombre_inscrip;
+        
+      },
+      error: (e) => {
+        console.error(e);
+      }
+    })
   }
 
 

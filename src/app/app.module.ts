@@ -52,6 +52,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardModule } from './components/dashboard/dashboard-module/dashboard.module';
 import { EvaluacionPracticanteComponent } from './components-estudiante/generar-reportes/evaluacion-practicante/evaluacion-practicante.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
+import { AsignacionesComponent } from './components/dashboard/asignaciones/asignaciones.component';
 
 @NgModule({
   declarations: [
